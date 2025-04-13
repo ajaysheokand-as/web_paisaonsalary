@@ -28,7 +28,7 @@ const Navbar = () => {
         {/* Logo */}
         <Link href="/">
           <span className="text-3xl text-[#4A91A4] font-extrabold tracking-wider">
-            Paisa On<span className="text-white"> Salary</span>
+            PaisaOn<span className="text-white">Salary</span>
           </span>
         </Link>
 
