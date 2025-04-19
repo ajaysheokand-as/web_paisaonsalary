@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { FiMenu, FiX } from "react-icons/fi";
 import Link from "next/link";
 import AdmissionForm from "../components/AdmissionForm";
+import Image from "next/image";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -26,10 +27,14 @@ const Navbar = () => {
     >
       <div className="max-w-7xl mx-auto px-6 py-6 flex justify-between items-center transition-all duration-300">
         {/* Logo */}
-        <Link href="/">
-          <span className="text-3xl text-[#4A91A4] font-extrabold tracking-wider">
-            PaisaOn<span className="text-white">Salary</span>
-          </span>
+        <Link href="/" className="flex items-center">
+          <Image
+            src="/logo_w_bg.png"
+            alt="PaisaOnSalary Logo"
+            width={120}
+            height={60}
+            priority
+          />
         </Link>
 
         {/* Desktop Menu */}
