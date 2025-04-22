@@ -29,7 +29,7 @@ const Navbar = () => {
         {/* Logo */}
         <Link href="/" className="flex items-center">
           <Image
-            src="/logo_w_bg.png"
+            src="/Logo_w_bg.png"
             alt="PaisaOnSalary Logo"
             width={120}
             height={60}
