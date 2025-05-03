@@ -1,3 +1,5 @@
+"use client";
+import { usePathname } from "next/navigation";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 import "./globals.css";
@@ -15,17 +17,19 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata = {
-  title: "Paisa On Salary",
-  description:
-    "Paisa On Salary offers fast and secure short-term loans exclusively for salaried individuals. Get instant approval, 100% digital processing, and same-day disbursal—all from your mobile device.",
-};
+// export const metadata = {
+//   title: "Paisa On Salary",
+//   description:
+//     "Paisa On Salary offers fast and secure short-term loans exclusively for salaried individuals. Get instant approval, 100% digital processing, and same-day disbursal—all from your mobile device.",
+// };
 
 export default function RootLayout({ children }) {
+  const pathname = usePathname();
+  const hideLayout = pathname.startsWith("/e-kyc");
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={` ${geistSans.variable} ${geistMono.variable} antialiased bg-white dark:bg-white`}
       >
         <Head>
           <title>{TITLE}</title>
@@ -56,9 +60,9 @@ export default function RootLayout({ children }) {
         </Head>
 
         <Toaster position="top-center" />
-        <Navbar />
+        {!hideLayout && <Navbar />}
         {children}
-        <Footer />
+        {!hideLayout && <Footer />}
       </body>
     </html>
   );
