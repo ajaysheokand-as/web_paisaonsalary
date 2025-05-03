@@ -13,11 +13,11 @@ export default function EKYCPage() {
   const [step, setStep] = useState("aadhaar");
   const [aadhaar, setaadhaar] = useState("");
   const [otp, setOtp] = useState("");
-
+  const [resp, setResp] = useState({});
   const handleaadhaarSubmit = async (e) => {
-    console.log("handleSubmit=>", aadhaar);
     e.preventDefault();
     if (aadhaar.length === 12) {
+      toast.dismiss();
       toast.loading("Sending OTP...");
       try {
         // Simulate API call to send OTP and include token
@@ -36,10 +36,12 @@ export default function EKYCPage() {
         );
         const data = await res.json();
         console.log("data=>", data);
-        data.success === true && toast.success("OTP sent successfully!");
-        // toast.dismiss();
-
-        setStep("otp");
+        if (data?.success === true) {
+          toast.dismiss();
+          toast.success("OTP sent successfully!");
+          setStep("otp");
+          setResp(data);
+        }
       } catch (error) {
         toast.dismiss();
         toast.error("Failed to send OTP");
@@ -49,40 +51,68 @@ export default function EKYCPage() {
     }
   };
 
-  const handleOtpSubmit = (e) => {
+  const handleOtpSubmit = async (e) => {
     e.preventDefault();
     if (otp.length === 6) {
-      toast.success("OTP Verified!");
-
-      Swal.fire({
-        title: "Verification Successful!",
-        text: "Would you like to share, stay, or close this window?",
-        icon: "success",
-        showCancelButton: true,
-        showDenyButton: true,
-        confirmButtonText: "Share",
-        cancelButtonText: "Close",
-        denyButtonText: "Stay",
-      }).then((result) => {
-        if (result.isConfirmed) {
-          if (navigator.share) {
-            navigator
-              .share({
-                title: "Paisa On Salary",
-                text: "My eKYC verification was successful!",
-                url: window.location.href,
-              })
-              .catch((err) => {
-                console.error("Error sharing:", err);
-              });
-          } else {
-            toast.error("Share not supported on this browser.");
+      try {
+        // Simulate API call to send OTP and include token
+        const res = await fetch(
+          `https://crm.paisaonsalary.in/api/request/aadhaar/verify`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              fwdp: resp?.response?.model?.fwdp,
+              shareCode: resp?.response?.model?.shareCode,
+              otp,
+              codeVerifier: resp?.response?.model?.codeVerifier,
+              validateXml: true,
+              processId,
+            }),
           }
-        } else if (result.isDismissed) {
-          window.close();
+        );
+        const data = await res.json();
+        console.log("data=>", data);
+        if (data?.success === true) {
+          toast.dismiss();
+          toast.success("OTP Verified!");
+          Swal.fire({
+            title: "Verification Successful!",
+            text: "Would you like to share, stay, or close this window?",
+            icon: "success",
+            showCancelButton: true,
+            showDenyButton: true,
+            confirmButtonText: "Share",
+            cancelButtonText: "Close",
+            denyButtonText: "Stay",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              if (navigator.share) {
+                navigator
+                  .share({
+                    title: "Paisa On Salary",
+                    text: "My eKYC verification was successful!",
+                    url: window.location.href,
+                  })
+                  .catch((err) => {
+                    console.error("Error sharing:", err);
+                  });
+              } else {
+                toast.error("Share not supported on this browser.");
+              }
+            } else if (result.isDismissed) {
+              window.close();
+            }
+            // Do nothing on deny ("Stay")
+          });
         }
-        // Do nothing on deny ("Stay")
-      });
+      } catch (error) {
+        toast.dismiss();
+        toast.error("Wrong OTP!");
+      }
+      // toast.success("OTP Verified!");
     } else {
       toast.error("Invalid OTP");
     }
