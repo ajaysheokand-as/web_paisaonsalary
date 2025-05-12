@@ -1,14 +1,15 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, Suspense } from "react";
 import { toast } from "react-hot-toast";
 import Image from "next/image";
 import Swal from "sweetalert2";
 import { useSearchParams } from "next/navigation";
-
+const baseURL = "https://crm.paisaonsalary.in";
+// const baseURL = "http://172.20.10.2";
 export default function EKYCPage() {
   const searchParams = useSearchParams();
   const processId =
-    searchParams.get("token") || "REYxTTlvU1BJaGU5ck9rQi9yOGxqdz09";
+    searchParams.get("processId") || "REYxTTlvU1BJaGU5ck9rQi9yOGxqdz09";
 
   const [step, setStep] = useState("aadhaar");
   const [aadhaar, setaadhaar] = useState("");
@@ -21,19 +22,16 @@ export default function EKYCPage() {
       toast.loading("Sending OTP...");
       try {
         // Simulate API call to send OTP and include token
-        const res = await fetch(
-          `https://crm.paisaonsalary.in/api/request/aadhaar/otp`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              aadhaar,
-              processId,
-            }),
-          }
-        );
+        const res = await fetch(`${baseURL}/api/request/aadhaar/otp`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            aadhaar,
+            processId,
+          }),
+        });
         const data = await res.json();
         console.log("data=>", data);
         if (data?.success === true) {
@@ -56,23 +54,21 @@ export default function EKYCPage() {
     if (otp.length === 6) {
       try {
         // Simulate API call to send OTP and include token
-        const res = await fetch(
-          `https://crm.paisaonsalary.in/api/request/aadhaar/verify`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              fwdp: resp?.response?.model?.fwdp,
-              shareCode: resp?.response?.model?.shareCode,
-              otp,
-              codeVerifier: resp?.response?.model?.codeVerifier,
-              validateXml: true,
-              processId,
-            }),
-          }
-        );
+        const res = await fetch(`${baseURL}/api/request/aadhaar/verify`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          body: JSON.stringify({
+            fwdp: resp?.data?.fwdp,
+            shareCode: resp?.data?.shareCode || "9876",
+            otp,
+            codeVerifier: resp?.data?.codeVerifier,
+            validateXml: true,
+            processId,
+          }),
+        });
         const data = await res.json();
         console.log("data=>", data);
         if (data?.success === true) {
@@ -119,69 +115,74 @@ export default function EKYCPage() {
   };
 
   return (
-    <div className="max-w-sm mx-auto px-4 py-8 font-sans animate-fade-in">
-      <div className="text-center mb-8">
-        <Image
-          src="/logo.png"
-          alt="Company Logo"
-          width={120}
-          height={120}
-          className="mx-auto mb-4 animate-fade-in"
-        />
-        <h2 className="text-xl font-semibold text-gray-800">
-          e-KYC Verification
-        </h2>
-        <p className="text-sm text-gray-600">
-          Please complete Aadhaar-based verification to proceed
-        </p>
+    <Suspense fallback={<div className="text-center text-4xl">Loading...</div>}>
+      <div className="max-w-sm mx-auto px-4 py-8 font-sans animate-fade-in">
+        <div className="text-center mb-8">
+          <Image
+            src="/logo.png"
+            alt="Company Logo"
+            width={120}
+            height={120}
+            className="mx-auto mb-4 animate-fade-in"
+          />
+          <h2 className="text-xl font-semibold text-gray-800">
+            e-KYC Verification
+          </h2>
+          <p className="text-sm text-gray-600">
+            Please complete Aadhaar-based verification to proceed
+          </p>
+        </div>
+
+        {step === "aadhaar" && (
+          <form
+            onSubmit={handleaadhaarSubmit}
+            className="space-y-4 animate-fade-in"
+          >
+            <label className="block text-sm font-medium text-gray-700">
+              Aadhaar Number
+              <input
+                type="text"
+                value={aadhaar}
+                onChange={(e) => setaadhaar(e.target.value)}
+                maxLength="12"
+                required
+                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-blue-300"
+              />
+            </label>
+            <button
+              type="submit"
+              className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 cursor-pointer transition duration-200"
+            >
+              Send OTP
+            </button>
+          </form>
+        )}
+
+        {step === "otp" && (
+          <form
+            onSubmit={handleOtpSubmit}
+            className="space-y-4 animate-fade-in"
+          >
+            <label className="block text-sm font-medium text-gray-700">
+              Enter OTP
+              <input
+                type="text"
+                value={otp}
+                onChange={(e) => setOtp(e.target.value)}
+                maxLength="6"
+                required
+                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-green-300"
+              />
+            </label>
+            <button
+              type="submit"
+              className="w-full bg-green-600 text-white py-2 rounded-md hover:bg-green-700 cursor-pointer transition duration-200"
+            >
+              Verify OTP
+            </button>
+          </form>
+        )}
       </div>
-
-      {step === "aadhaar" && (
-        <form
-          onSubmit={handleaadhaarSubmit}
-          className="space-y-4 animate-fade-in"
-        >
-          <label className="block text-sm font-medium text-gray-700">
-            Aadhaar Number
-            <input
-              type="text"
-              value={aadhaar}
-              onChange={(e) => setaadhaar(e.target.value)}
-              maxLength="12"
-              required
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-blue-300"
-            />
-          </label>
-          <button
-            type="submit"
-            className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 cursor-pointer transition duration-200"
-          >
-            Send OTP
-          </button>
-        </form>
-      )}
-
-      {step === "otp" && (
-        <form onSubmit={handleOtpSubmit} className="space-y-4 animate-fade-in">
-          <label className="block text-sm font-medium text-gray-700">
-            Enter OTP
-            <input
-              type="text"
-              value={otp}
-              onChange={(e) => setOtp(e.target.value)}
-              maxLength="6"
-              required
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-green-300"
-            />
-          </label>
-          <button
-            type="submit"
-            className="w-full bg-green-600 text-white py-2 rounded-md hover:bg-green-700 cursor-pointer transition duration-200"
-          >
-            Verify OTP
-          </button>
-        </form>
-      )}
-    </div>
+    </Suspense>
   );
 }
