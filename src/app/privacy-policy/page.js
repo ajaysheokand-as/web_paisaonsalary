@@ -1,6 +1,6 @@
 import React from "react";
 import Header from "../components/common/Header";
-import { EMAIL } from "@/constants";
+import { ADDRESS, EMAIL, PHONE } from "@/constants";
 
 export default function PrivacyPolicy() {
   return (
@@ -112,18 +112,17 @@ export default function PrivacyPolicy() {
               Officer:
             </p>
             <p>
-              <strong>Phone:</strong> +91-9660236005
+              <strong>Phone:</strong> {PHONE}
               <br />
               <strong>Email:</strong>{" "}
               <a
-                href="mailto:care@paisaonsalary.com"
+                href="mailto:support@paisaonsalary.com"
                 className="text-blue-600 underline"
               >
-                support@paisaonsalary.com
+                {EMAIL}
               </a>
               <br />
-              <strong>Address:</strong> 88-E 2nd Floor Near Punjab and Sind
-              Bank, Jindal Chowk Hisar
+              <strong>Address:</strong> {ADDRESS}
             </p>
           </section>
 
