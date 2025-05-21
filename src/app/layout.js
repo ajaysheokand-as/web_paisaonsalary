@@ -1,5 +1,5 @@
 "use client";
-import { usePathname } from "next/navigation";
+
 import { Geist, Geist_Mono } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 import "./globals.css";
@@ -24,8 +24,6 @@ const geistMono = Geist_Mono({
 // };
 
 export default function RootLayout({ children }) {
-  const pathname = usePathname();
-  const hideLayout = pathname.startsWith("/e-kyc");
   return (
     <html lang="en">
       <body
@@ -60,9 +58,9 @@ export default function RootLayout({ children }) {
         </Head>
 
         <Toaster position="top-center" />
-        {!hideLayout && <Navbar />}
+        {<Navbar />}
         {children}
-        {!hideLayout && <Footer />}
+        {<Footer />}
       </body>
     </html>
   );

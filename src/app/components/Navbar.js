@@ -72,10 +72,16 @@ const Navbar = () => {
           </Link>
           <button
             onClick={() => setIsModalOpen(true)}
-            className="bg-[#4A91A4] text-white px-4 py-2 rounded-md hover:bg-[#3a7d8e] transition duration-300 font-medium"
+            className="bg-[#4A91A4] text-white px-4 py-2 rounded-md hover:bg-[#3a7d8e] cursor-pointer transition duration-300 font-medium"
           >
             Apply Now
           </button>
+          <Link
+            href="/repayloan"
+            className="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 cursor-pointer transition duration-300 font-medium"
+          >
+            Repay Loan
+          </Link>
         </div>
 
         {/* Mobile Menu Button */}

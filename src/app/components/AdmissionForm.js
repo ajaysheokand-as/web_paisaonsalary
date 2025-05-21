@@ -14,7 +14,7 @@ const AdmissionForm = () => {
     loanAmount: "",
     tenure: "",
     salary: "",
-    // dob: "",
+    pancard: "",
     employment: "",
     agree: false,
   });
@@ -140,6 +140,24 @@ const AdmissionForm = () => {
         {step === 1 && (
           <>
             <input
+              type="tel"
+              name="phone"
+              placeholder="Phone Number"
+              value={formData.phone}
+              onChange={handleChange}
+              required
+              className="w-full px-4 py-2 border rounded-md bg-white text-black placeholder-gray-500"
+            />
+            <input
+              type="text"
+              name="pancard"
+              placeholder="Pan Card"
+              value={formData.pancard}
+              onChange={handleChange}
+              required
+              className="w-full px-4 py-2 border rounded-md bg-white text-black placeholder-gray-500"
+            />
+            <input
               type="text"
               name="name"
               placeholder="Full Name"
@@ -157,16 +175,17 @@ const AdmissionForm = () => {
               required
               className="w-full px-4 py-2 border rounded-md bg-white text-black placeholder-gray-500"
             />
+
             <input
-              type="tel"
-              name="phone"
-              placeholder="Phone Number"
-              value={formData.phone}
+              type="text"
+              name="city"
+              placeholder="City"
+              value={formData.city}
               onChange={handleChange}
               required
               className="w-full px-4 py-2 border rounded-md bg-white text-black placeholder-gray-500"
             />
-            <select
+            {/* <select
               name="city"
               value={formData.city}
               onChange={handleChange}
@@ -179,7 +198,7 @@ const AdmissionForm = () => {
               <option value="Bangalore">Bangalore</option>
               <option value="Chandigarh">Chandigarh</option>
               <option value="Other">Other</option>
-            </select>
+            </select> */}
             <input
               type="text"
               name="pinCode"
