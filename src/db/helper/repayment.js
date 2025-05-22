@@ -22,14 +22,19 @@ const sql = `
     cam.tenure, 
     cam.roi, 
     dl.disburse_beneficiary_account_no AS customer_bank_account_number, 
-    dl.disburse_beneficiary_ifsc_code AS customer_bank_ifsc 
+    dl.disburse_beneficiary_ifsc_code AS customer_bank_ifsc,
+    loan.status as loan_status,
+    loan.loan_settled_date,
+    loan.loan_closure_date,
   FROM leads 
   LEFT JOIN credit_analysis_memo AS cam 
     ON leads.lead_id = cam.lead_id 
   LEFT JOIN api_disburse_logs AS dl 
     ON leads.lead_id = dl.disburse_lead_id 
   LEFT JOIN master_state 
-    ON master_state.m_state_id = leads.state_id 
+    ON master_state.m_state_id = leads.state_id
+  LEFT JOIN loan 
+    ON loan.lead_id  = leads.lead_id 
   WHERE leads.lead_id = ?
   LIMIT 1
 `;

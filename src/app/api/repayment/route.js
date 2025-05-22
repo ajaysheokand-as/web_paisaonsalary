@@ -5,6 +5,7 @@ import { getLeadRepaymentInfo } from '@/services/leadsService';
 export async function GET(request) {
   const { searchParams } = new URL(request.url);
   const pancard = searchParams.get('pancard');
+  console.log("control on repayment: GET => ", process.env.MYSQL_PORT);
 
   if (!pancard) {
     return NextResponse.json({ error: 'Missing pancard' }, { status: 400 });
