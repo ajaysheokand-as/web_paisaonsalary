@@ -9,7 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@aws-amplify/backend": "^1.16.1",
     "framer-motion": "^12.6.3",
     "lucide-react": "^0.487.0",
     "mysql2": "^3.14.1",
