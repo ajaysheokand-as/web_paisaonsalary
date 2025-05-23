@@ -6,35 +6,54 @@ const RETRY_DELAY = 1000; // 1 second
 
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
-export async function query(sql, params = [], retryCount = 0) {
-  try {
-    const [rows] = await pool.execute(sql, params);
-    return rows;
-  } catch (error) {
-    console.error('Database query error:', {
-      code: error.code,
-      errno: error.errno,
-      sqlState: error.sqlState,
-      sqlMessage: error.sqlMessage,
-      message: error.message,
-      stack: error.stack
-    });
+export async function query(sql, params = []) {
+  for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
+    const startTime = Date.now();
+    let connection;
 
-    // Check if error is retryable
-    const isRetryable = error.code === 'PROTOCOL_CONNECTION_LOST' || 
-                       error.code === 'ECONNRESET' ||
-                       error.code === 'ETIMEDOUT' ||
-                       error.code === 'PROTOCOL_ENQUEUE_AFTER_FATAL_ERROR' ||
-                       error.code === 'ECONNREFUSED' ||
-                       error.code === 'EHOSTUNREACH';
+    try {
+      connection = await pool.getConnection();
+      const [rows] = await connection.execute(sql, params);
+      const duration = Date.now() - startTime;
 
-    if (isRetryable && retryCount < MAX_RETRIES) {
-      console.log(`Retrying query (attempt ${retryCount + 1}/${MAX_RETRIES})...`);
-      await sleep(RETRY_DELAY * (retryCount + 1)); // Exponential backoff
-      return query(sql, params, retryCount + 1);
+      if (duration > 1000) {
+        console.warn(`[Slow Query] Took ${duration}ms: ${sql}`);
+      }
+
+      console.info(`[Query Success] Attempt ${attempt + 1} | Duration: ${duration}ms`);
+      return rows;
+    } catch (error) {
+      const duration = Date.now() - startTime;
+
+      const isRetryable = error.fatal ||
+        ['PROTOCOL_CONNECTION_LOST', 'ECONNRESET', 'ETIMEDOUT', 'PROTOCOL_ENQUEUE_AFTER_FATAL_ERROR', 'ECONNREFUSED', 'EHOSTUNREACH'].includes(error.code);
+
+      console.error(`[Query Error] Attempt ${attempt + 1} | Duration: ${duration}ms`, {
+        code: error.code,
+        errno: error.errno,
+        sqlState: error.sqlState,
+        sqlMessage: error.sqlMessage,
+        message: error.message,
+        stack: error.stack
+      });
+
+      if (!isRetryable || attempt === MAX_RETRIES) {
+        throw new Error(`Database query failed after ${attempt + 1} attempt(s): ${error.sqlMessage || error.message}`);
+      }
+
+      console.log(`Retrying query in ${RETRY_DELAY * (attempt + 1)}ms...`);
+      await sleep(RETRY_DELAY * (attempt + 1));
+    } finally {
+      if (connection) {
+        try {
+          connection.release();
+        } catch (releaseError) {
+          console.error('[Connection Release Error]', {
+            message: releaseError.message,
+            stack: releaseError.stack
+          });
+        }
+      }
     }
-
-    // If not retryable or max retries reached, throw error
-    throw new Error(`Database query failed: ${error.sqlMessage || error.message}`);
   }
 }
