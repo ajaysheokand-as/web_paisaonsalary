@@ -76,6 +76,12 @@ const Navbar = () => {
           >
             Apply Now
           </button>
+          <Link
+            href="/repayloan"
+            className="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 cursor-pointer transition duration-300 font-medium"
+          >
+            Repay Loan
+          </Link>
         </div>
 
         {/* Mobile Menu Button */}
@@ -124,6 +130,12 @@ const Navbar = () => {
           >
             Apply Now
           </button>
+          <Link
+            href="/repayloan"
+            className="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 cursor-pointer transition duration-300 font-medium"
+          >
+            Repay Loan
+          </Link>
         </div>
       )}
 
