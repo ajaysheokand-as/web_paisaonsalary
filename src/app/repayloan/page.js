@@ -89,7 +89,7 @@ export default function RepayLoan() {
       <Header title="Loan Repayment" />
       <div className="w-full min-h-screen flex flex-col items-center bg-white dark:bg-white text-gray-900 dark:text-gray-900 border border-gray-300 dark:border-gray-300 shadow-md">
         <div className="w-full max-w-6xl p-8 mx-auto">
-          <div className="bg-white rounded-lg shadow-md p-8 mb-8">
+          {/* <div className="bg-white rounded-lg shadow-md p-8 mb-8">
             {content === "pannumber" ? (
               <PanVerification
                 onOtpReceived={handleSendOtp}
@@ -110,7 +110,7 @@ export default function RepayLoan() {
             ) : content === "paymentSuccess" ? (
               <PaymentSuccess status={paymentStatus} />
             ) : null}
-          </div>
+          </div> */}
 
           <BankDetails
             bankName="HDFC Bank Ltd"
