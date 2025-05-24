@@ -114,15 +114,16 @@ export default function RepayLoan() {
 
           <BankDetails
             bankName="HDFC Bank Ltd"
-            companyName="Paisa On Salary"
-            accountNo="50200102388550"
-            ifscCode="HDFC0002762"
-            branchAddress="Hisar"
+            companyName="Naman Finlease Private Ltd"
+            accountNo="59208588888450"
+            ifscCode="HDFC0000248"
+            branchAddress="S-355 Panchshila Park New Delhi 110017"
             accountType="Current"
-            qrCodeSrc="/images/IDFCQR.jpeg"
+            qrCodeSrc="/NamanQR.jpeg"
+            upiId="vyapar.174180804884@hdfcbank"
           />
 
-          <BankDetails
+          {/* <BankDetails
             bankName="IDFC First Bank"
             companyName="Paisa On Salary"
             accountNo="***********72"
@@ -130,7 +131,7 @@ export default function RepayLoan() {
             branchAddress="Hisar"
             accountType="Current"
             qrCodeSrc="/images/IDFCQR.jpeg"
-          />
+          /> */}
 
           <InformationSection />
         </div>

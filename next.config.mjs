@@ -7,6 +7,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "randomuser.me",
       },
+      {
+        protocol: "https",
+        hostname: "chart.googleapis.com",
+      },
     ],
   },
   transpilePackages: ["lucide-react"],
