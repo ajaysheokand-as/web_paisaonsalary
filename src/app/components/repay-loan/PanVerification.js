@@ -61,10 +61,10 @@ export default function PanVerification({ loading, fetchData }) {
   };
 
   return (
-    <div className="flex flex-col">
-      <div className="flex flex-col md:flex-row mt-6 border border-gray-300 rounded-md">
+    <div className="flex flex-col px-4 py-4 sm:px-1 sm:py-1">
+      <div className="flex flex-col md:flex-row mt-4 sm:mt-2 border border-gray-300 rounded-md">
         {/* Left Section: Input and Button */}
-        <div className="w-full md:w-1/2 p-6 border-b md:border-b-0 md:border-r border-gray-300">
+        <div className="w-full md:w-1/2 px-4 py-4 sm:px-2 sm:py-2 border-b md:border-b-0 md:border-r border-gray-300">
           <p className="text-gray-600 italic mb-5">
             Please verify the accuracy of the below details before doing any
             transfer.
@@ -91,7 +91,7 @@ export default function PanVerification({ loading, fetchData }) {
             )}
           </button>
           {Object.keys(userData).length > 0 && (
-            <div className="mt-6 p-4 bg-gray-50 border border-gray-200 rounded-lg shadow-md w-full">
+            <div className="mt-4 sm:mt-6 p-4 bg-gray-50 border border-gray-200 rounded-lg shadow-md w-full">
               <h3 className="text-xl font-bold text-center mb-4 text-blue-700">
                 Customer Summary
               </h3>
@@ -121,12 +121,12 @@ export default function PanVerification({ loading, fetchData }) {
           )}
         </div>
         {/* Right Section: QR Code, logos, etc. */}
-        <div className="w-full md:w-1/2 p-6 flex flex-col items-center justify-center">
+        <div className="w-full md:w-1/2 px-4 py-4 sm:px-2 sm:py-2 flex flex-col items-center justify-center">
           <h3 className="text-xl font-bold mb-2 text-center">
             Naman Finlease Private Limited
           </h3>
           <h4 className="text-lg font-semibold mb-4">Scan to Pay</h4>
-          <div className="border border-gray-400 rounded-md p-4 mb-4">
+          <div className="border border-gray-400 rounded-md p-3 sm:p-2 mb-2">
             <QRCodeCanvas
               value={`upi://pay?pa=${upiId}&pn=POSUser${
                 userData?.["Loan Repay Amount"]
