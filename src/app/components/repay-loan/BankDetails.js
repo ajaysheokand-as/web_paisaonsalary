@@ -21,7 +21,7 @@ export default function BankDetails({
                 <span className="font-medium">Bank Name</span>
               </td>
               <td className="pl-4">
-                <span>{bankName}</span>
+                <span className="flex items-center">{bankName}</span>
               </td>
             </tr>
             <tr>
@@ -37,7 +37,7 @@ export default function BankDetails({
                 <span className="font-medium">Account No.</span>
               </td>
               <td className="pl-4">
-                <span>{accountNo}</span>
+                <span className="flex items-center">{accountNo}</span>
               </td>
             </tr>
             <tr>
@@ -45,7 +45,7 @@ export default function BankDetails({
                 <span className="font-medium">IFSC Code</span>
               </td>
               <td className="pl-4">
-                <span>{ifscCode}</span>
+                <span className="flex items-center">{ifscCode}</span>
               </td>
             </tr>
             <tr>
@@ -69,7 +69,17 @@ export default function BankDetails({
                 <span className="font-medium">UPI ID</span>
               </td>
               <td className="pl-4">
-                <span>{upiId}</span>
+                <span className="flex items-center">
+                  {upiId}
+                  <button
+                    onClick={() =>
+                      (window.location.href = `upi://pay?pa=${upiId}&pn=POSUser&cu=INR`)
+                    }
+                    className="ml-4 px-3 py-1 text-sm bg-green-600 hover:bg-green-700 cursor-pointer text-white rounded"
+                  >
+                    Pay Now
+                  </button>
+                </span>
               </td>
             </tr>
           </tbody>

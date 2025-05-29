@@ -117,7 +117,16 @@ export default function RepayLoan() {
               <PaymentSuccess status={paymentStatus} />
             ) : null}
           </div>
-
+          <BankDetails
+            bankName="HDFC Bank Ltd"
+            companyName="Naman Finlease Private Ltd"
+            accountNo="45230200001507"
+            ifscCode="BARBOMALVIY"
+            branchAddress="SELECT CITYWALK. SAKET BRANCH, DELHI 110017"
+            accountType="Current"
+            qrCodeSrc="/QRCODE.jpg"
+            upiId="naman99539@barodampay"
+          />
           <BankDetails
             bankName="HDFC Bank Ltd"
             companyName="Naman Finlease Private Ltd"
@@ -128,6 +137,7 @@ export default function RepayLoan() {
             qrCodeSrc="/NamanQR.jpeg"
             upiId="vyapar.174180804884@hdfcbank"
           />
+
           <InformationSection />
         </div>
 

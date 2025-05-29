@@ -6,7 +6,6 @@ export default function PanVerification({ loading, fetchData }) {
   const [pancard, setPancard] = useState("");
   const [upiId] = useState("vyapar.174180804884@hdfcbank");
   const [userData, setUserData] = useState({});
-  const [amount, setAmount] = useState("");
   const [isFetching, setIsFetching] = useState(false);
 
   const upiLink = `upi://pay?pa=${upiId}&pn=POSUser&am=${userData?.["Loan Repay Amount"]}&cu=INR`;
@@ -25,7 +24,10 @@ export default function PanVerification({ loading, fetchData }) {
   const formatDate = (dateString) => {
     if (!dateString) return "N/A";
 
-    const date = new Date(dateString);
+    // Split and parse DD-MM-YYYY format
+    const [day, month, year] = dateString.split("-");
+    const date = new Date(`${year}-${month}-${day}`);
+
     if (isNaN(date)) return "Invalid Date";
 
     return date.toLocaleDateString("en-IN", {
@@ -92,8 +94,35 @@ export default function PanVerification({ loading, fetchData }) {
           </button>
           {Object.keys(userData).length > 0 && (
             <div className="mt-4 sm:mt-6 p-4 bg-gray-50 border border-gray-200 rounded-lg shadow-md w-full">
+              {/* Personalized greeting and repayment info */}
+              {userData["Customer Name"] && userData["Loan Repay Amount"] && (
+                <div className="mb-4 text-center">
+                  <p className="text-lg font-semibold text-gray-700">
+                    Hello {userData["Customer Name"]}, your repayment amount is
+                    ₹{userData["Loan Repay Amount"]}
+                  </p>
+                  {userData["Repayment Date"] && (
+                    <p
+                      className={`text-sm font-medium mt-1 ${
+                        new Date() >=
+                        new Date(
+                          userData["Repayment Date"]
+                            .split("-")
+                            .reverse()
+                            .join("-")
+                        )
+                          ? "text-red-600"
+                          : "text-gray-600"
+                      }`}
+                    >
+                      Repayment Due Date:{" "}
+                      {formatDate(userData["Repayment Date"])}
+                    </p>
+                  )}
+                </div>
+              )}
               <h3 className="text-xl font-bold text-center mb-4 text-blue-700">
-                Customer Summary
+                Summary
               </h3>
               <div className="space-y-2 text-sm sm:text-base">
                 <p>
@@ -135,6 +164,24 @@ export default function PanVerification({ loading, fetchData }) {
               }&cu=INR`}
               size={200}
             />
+          </div>
+          <div className="flex flex-col gap-2 mt-4 w-full max-w-xs">
+            <button
+              onClick={() =>
+                (window.location.href = `upi://pay?pa=vyapar.174180804884@barodamp&pn=POSUser&am=${userData?.["Loan Repay Amount"]}&cu=INR`)
+              }
+              className="bg-[#ef6c00] hover:bg-[#e65100] cursor-pointer text-white py-2 px-4 rounded text-center"
+            >
+              Pay ₹{userData?.["Loan Repay Amount"] || ""} to Bank of Baroda
+            </button>
+            <button
+              onClick={() =>
+                (window.location.href = `upi://pay?pa=vyapar.174180804884@hdfcbank&pn=POSUser&am=${userData?.["Loan Repay Amount"]}&cu=INR`)
+              }
+              className="bg-[#003399] hover:bg-[#002080] cursor-pointer text-white py-2 px-4 rounded text-center"
+            >
+              Pay ₹{userData?.["Loan Repay Amount"] || ""} to HDFC Bank
+            </button>
           </div>
         </div>
       </div>
