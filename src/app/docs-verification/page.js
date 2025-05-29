@@ -11,6 +11,10 @@ const verificationLinks = [
         url: "https://freesearchigrservice.maharashtra.gov.in/",
       },
       {
+        name: "Online Document Search",
+        url: "https://freesearchigrservice.maharashtra.gov.in/",
+      },
+      {
         name: "E-Stamp",
         url: "https://www.shcilestamp.com/eStampIndia/VerifyCertificate.es?rDoAction=VerifyCert",
       },
@@ -22,6 +26,10 @@ const verificationLinks = [
       {
         name: "CVL KRA",
         url: "https://validate.cvlindia.com/CVLKRAVerification_V1/",
+      },
+      {
+        name: "TRACES (TDS/TCS)",
+        url: "https://www.tdscpc.gov.in/app/login.xhtml",
       },
     ],
   },
@@ -37,9 +45,14 @@ const verificationLinks = [
         url: "https://wss.mahadiscom.in/wss/wss?uiActionName=getHome&Lang=English",
       },
       {
+        name: "MSEB (View Pay Bill)",
+        url: "https://wss.mahadiscom.in/wss/wss?uiActionName=getViewPayBill",
+      },
+      {
         name: "Tata Power Delhi",
         url: "https://www.tatapower-ddl.com/billpay/paybillonline.aspx",
       },
+      { name: "Tata Power Payment", url: "https://www.tatapower.com/" },
       {
         name: "Punjab PSPCL",
         url: "https://billpayment.pspcl.in/pgBillPay.aspx?uc=BillPay",
@@ -52,29 +65,41 @@ const verificationLinks = [
         name: "Southern Power (APSPDCL)",
         url: "https://apspdcl.in/digital_payment.jsp",
       },
+      {
+        name: "Southern Power BillDesk",
+        url: "https://payments.billdesk.com/MercOnline/SPDCLController",
+      },
       { name: "Haryana DHBVN", url: "https://epayment.dhbvn.org.in/" },
       {
         name: "Tamil Nadu TNEB",
         url: "https://www.tnebnet.org/awp/userRegister?execution=e1s1",
       },
+      { name: "TANGEDCO Online Payment", url: "https://www.tnebnet.org/" },
       {
         name: "BSES BYPL",
         url: "https://www.bsesdelhi.com/web/bypl/quick-pay",
       },
       {
-        name: "BSES BRPL",
+        name: "BSES Rajdhani",
         url: "https://www.bsesdelhi.com/web/brpl/quick-pay",
+      },
+      {
+        name: "BSES BYPL View Bill",
+        url: "http://byplws.bsesdelhi.com:8086/frmViewBill.aspx",
       },
       {
         name: "Gujarat MGVCL",
         url: "https://mgvcl.co.in:8085/NonRegConBillInfo",
       },
+      { name: "PGVCL", url: "https://www.pgvcl.com/" },
       { name: "UPPCL", url: "https://consumer.uppcl.org/wss/pay_bill_home" },
-      {
-        name: "Southern Power BillDesk",
-        url: "https://payments.billdesk.com/MercOnline/SPDCLController",
-      },
       { name: "NDMC", url: "https://ewbilling.ndmc.gov.in/" },
+      { name: "BESCOM", url: "https://bescom.org/" },
+      { name: "JVVNL", url: "https://www.bijlimitra.com/" },
+      { name: "MPEB", url: "https://www.mpez.co.in/" },
+      { name: "CESC", url: "https://www.cesc.co.in/" },
+      { name: "TGSPDCL", url: "https://tgspdcl.in/" },
+      { name: "::APCPDCLAPPG::", url: "https://apcpdcl.in/" },
     ],
   },
   {
@@ -82,8 +107,13 @@ const verificationLinks = [
     links: [
       {
         name: "IGL Prepaid",
-        url: "https://webonline.igl.co.in:8077/sap/bc/ui5_ui5/sap/zumcui5/index.html?directPayment2&_ga=2.18921400#page|%7B%22id%22%3A%22onlineRecharge%22%7D|0",
+        url: "https://webonline.igl.co.in:8077/sap/bc/ui5_ui5/sap/zumcui5/index.html?directPayment2",
       },
+      {
+        name: "IGL Postpaid",
+        url: "https://webonline.igl.co.in:8077/sap/bc/bsp/sap/zumcui5/webcontent/index.html?directPayment",
+      },
+      { name: "Welcome to IGL", url: "https://www.igl.co.in/" },
       {
         name: "Indian Oil",
         url: "https://cx.indianoilcgd.com/portal/Pay_bill.aspx",
@@ -92,10 +122,6 @@ const verificationLinks = [
       {
         name: "Gujarat Gas",
         url: "https://applications.gujaratgas.com/Onlinepayment/frmBillPay.aspx",
-      },
-      {
-        name: "IGL Postpaid",
-        url: "https://webonline.igl.co.in:8077/sap/bc/bsp/sap/zumcui5/webcontent/index.html?directPayment&_ga=2.48#page|%7B%22id%22%3A%22instaPayment%22%7D|0",
       },
       {
         name: "Mahanagar Gas",
@@ -133,6 +159,33 @@ const verificationLinks = [
       {
         name: "Hathway",
         url: "https://isp.hathway.net:7404/selfcare_beta/index.php?r=qp/enterdetails",
+      },
+    ],
+  },
+  {
+    title: "Water Bills",
+    links: [{ name: "MCG Water Bill", url: "https://www.mcg.gov.in/" }],
+  },
+  {
+    title: "Other Useful Links",
+    links: [
+      { name: "GST Services", url: "https://www.gst.gov.in/" },
+      { name: "Whois Lookup", url: "https://www.whois.com/" },
+      {
+        name: "Translate JPG Hindi",
+        url: "https://openl.io/translate/jpg/hindi",
+      },
+      { name: "ZaubaCorp", url: "https://www.zaubacorp.com/" },
+      { name: "Read PDF Metadata", url: "https://pdfyeah.com/" },
+      { name: "SNP Technical", url: "http://www.snptechnical.co.in" },
+    ],
+  },
+  {
+    title: "Identity Verification",
+    links: [
+      {
+        name: "Download Aadhaar (UIDAI)",
+        url: "https://myaadhaar.uidai.gov.in/genricDownloadAadhaar",
       },
     ],
   },
