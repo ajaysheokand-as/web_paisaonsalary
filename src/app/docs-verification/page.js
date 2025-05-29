@@ -11,10 +11,6 @@ const verificationLinks = [
         url: "https://freesearchigrservice.maharashtra.gov.in/",
       },
       {
-        name: "Online Document Search",
-        url: "https://freesearchigrservice.maharashtra.gov.in/",
-      },
-      {
         name: "E-Stamp",
         url: "https://www.shcilestamp.com/eStampIndia/VerifyCertificate.es?rDoAction=VerifyCert",
       },
