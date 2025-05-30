@@ -24,9 +24,7 @@ export default function PanVerification({ loading, fetchData }) {
   const formatDate = (dateString) => {
     if (!dateString) return "N/A";
 
-    // Split and parse DD-MM-YYYY format
-    const [day, month, year] = dateString.split("-");
-    const date = new Date(`${year}-${month}-${day}`);
+    const date = new Date(dateString);
 
     if (isNaN(date)) return "Invalid Date";
 
@@ -172,7 +170,7 @@ export default function PanVerification({ loading, fetchData }) {
               }
               className="bg-[#ef6c00] hover:bg-[#e65100] cursor-pointer text-white py-2 px-4 rounded text-center"
             >
-              Pay ₹{userData?.["Loan Repay Amount"] || ""} to Bank of Baroda
+              Pay ₹{userData?.["Loan Repay Amount"] || ""} to Server 1
             </button>
             <button
               onClick={() =>
@@ -180,7 +178,7 @@ export default function PanVerification({ loading, fetchData }) {
               }
               className="bg-[#003399] hover:bg-[#002080] cursor-pointer text-white py-2 px-4 rounded text-center"
             >
-              Pay ₹{userData?.["Loan Repay Amount"] || ""} to HDFC Bank
+              Pay ₹{userData?.["Loan Repay Amount"] || ""} to Server 2
             </button>
           </div>
         </div>

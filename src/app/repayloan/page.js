@@ -118,7 +118,7 @@ export default function RepayLoan() {
             ) : null}
           </div>
           <BankDetails
-            bankName="HDFC Bank Ltd"
+            bankName="Bank of Baroda"
             companyName="Naman Finlease Private Ltd"
             accountNo="45230200001507"
             ifscCode="BARBOMALVIY"
