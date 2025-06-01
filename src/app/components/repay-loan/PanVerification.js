@@ -1,14 +1,29 @@
 "use client";
 
 import { useState } from "react";
+import { useEffect } from "react";
 import { QRCodeCanvas } from "qrcode.react";
+
+const parseDate = (dateStr) => {
+  if (!dateStr) return null;
+  const parts = dateStr.split("-");
+  if (parts.length === 3) {
+    const [dd, mm, yyyy] = parts;
+    const formatted = `${yyyy}-${mm}-${dd}`;
+    const date = new Date(formatted);
+    return isNaN(date) ? null : date;
+  }
+  const date = new Date(dateStr);
+  return isNaN(date) ? null : date;
+};
+
 export default function PanVerification({ loading, fetchData }) {
   const [pancard, setPancard] = useState("");
   const [upiId] = useState("vyapar.174180804884@hdfcbank");
   const [userData, setUserData] = useState({});
   const [isFetching, setIsFetching] = useState(false);
 
-  const upiLink = `upi://pay?pa=${upiId}&pn=POSUser&am=${userData?.["Loan Repay Amount"]}&cu=INR`;
+  const upiLink = `upi://pay?pa=${upiId}&pn=POSUser&am=${userData?.total}&cu=INR`;
 
   const handlePAN = (e) => {
     const value = e.target.value.toUpperCase();
@@ -22,17 +37,56 @@ export default function PanVerification({ loading, fetchData }) {
   };
 
   const formatDate = (dateString) => {
-    if (!dateString) return "N/A";
-
-    const date = new Date(dateString);
-
-    if (isNaN(date)) return "Invalid Date";
+    const date = parseDate(dateString);
+    if (!date) return "Invalid Date";
 
     return date.toLocaleDateString("en-IN", {
       day: "2-digit",
       month: "long",
       year: "numeric",
     });
+  };
+
+  const calculateRepaymentWithPenalty = (data) => {
+    const disbursementDate = parseDate(data["Disbursement Date"]);
+    const repaymentDate = parseDate(data["Repayment Date"]);
+    const today = new Date();
+
+    if (!disbursementDate || !repaymentDate) {
+      const principal = parseFloat(data["Loan Repay Amount"]) || 0;
+      return {
+        total: principal.toFixed(2),
+        interest: "0.00",
+        penalty: "0.00",
+        note: "Excluding penalty due to invalid date format",
+        duration: null,
+        penaltyDays: 0,
+      };
+    }
+
+    const msInDay = 1000 * 60 * 60 * 24;
+    const principal = parseFloat(data["LOAN AMOUNT"]) || 0;
+
+    const endDate = today > repaymentDate ? repaymentDate : today;
+    const duration = Math.ceil((endDate - disbursementDate) / msInDay);
+    const interest = principal * 0.01 * duration;
+
+    let penalty = 0;
+    let penaltyDays = 0;
+    if (today > repaymentDate) {
+      penaltyDays = Math.ceil((today - repaymentDate) / msInDay);
+      penalty = principal * 0.01 * penaltyDays;
+    }
+
+    const total = principal + interest + penalty;
+
+    return {
+      total: total.toFixed(2),
+      interest: interest.toFixed(2),
+      penalty: penalty.toFixed(2),
+      duration,
+      penaltyDays,
+    };
   };
 
   const handleSubmit = async () => {
@@ -51,6 +105,8 @@ export default function PanVerification({ loading, fetchData }) {
       }
       const responseData = await response.json();
       setUserData(responseData?.data);
+      const calculated = calculateRepaymentWithPenalty(responseData?.data);
+      setUserData((prev) => ({ ...prev, ...calculated }));
       console.log("response Data=>", responseData);
     } catch (error) {
       console.error("Error fetching repayment details:", error);
@@ -84,8 +140,8 @@ export default function PanVerification({ loading, fetchData }) {
           >
             {isFetching ? (
               <div className="inline-block w-5 h-5 border-4 border-white border-t-transparent rounded-full animate-spin"></div>
-            ) : userData?.["Loan Repay Amount"] ? (
-              `Pay via UPI ₹${userData["Loan Repay Amount"]}`
+            ) : userData?.total ? (
+              `Pay via UPI ₹${userData.total}`
             ) : (
               "View My Loan"
             )}
@@ -93,11 +149,11 @@ export default function PanVerification({ loading, fetchData }) {
           {Object.keys(userData).length > 0 && (
             <div className="mt-4 sm:mt-6 p-4 bg-gray-50 border border-gray-200 rounded-lg shadow-md w-full">
               {/* Personalized greeting and repayment info */}
-              {userData["Customer Name"] && userData["Loan Repay Amount"] && (
+              {userData["Customer Name"] && userData.total && (
                 <div className="mb-4 text-center">
                   <p className="text-lg font-semibold text-gray-700">
                     Hello {userData["Customer Name"]}, your repayment amount is
-                    ₹{userData["Loan Repay Amount"]}
+                    ₹{userData.total}
                   </p>
                   {userData["Repayment Date"] && (
                     <p
@@ -123,26 +179,66 @@ export default function PanVerification({ loading, fetchData }) {
                 Summary
               </h3>
               <div className="space-y-2 text-sm sm:text-base">
-                <p>
-                  <strong>Repayment Amount:</strong> ₹
-                  {userData["Loan Repay Amount"]}
+                {userData["Loan Repay Amount"] &&
+                  parseFloat(userData["Loan Repay Amount"]) > 0 && (
+                    <p>
+                      <strong>Repayment Amount:</strong> ₹
+                      {userData["Loan Repay Amount"]}
+                    </p>
+                  )}
+                {userData["Customer Name"] && (
+                  <p>
+                    <strong>Name:</strong> {userData["Customer Name"]}
+                  </p>
+                )}
+                {userData["State"] && (
+                  <p>
+                    <strong>State:</strong> {userData["State"]}
+                  </p>
+                )}
+                {userData["Pan Number"] && (
+                  <p>
+                    <strong>PAN Number:</strong> {userData["Pan Number"]}
+                  </p>
+                )}
+                {userData["LOAN AMOUNT"] &&
+                  parseFloat(userData["LOAN AMOUNT"]) > 0 && (
+                    <p>
+                      <strong>Loan Amount:</strong> ₹{userData["LOAN AMOUNT"]}
+                    </p>
+                  )}
+                {userData["Disbursement Date"] && (
+                  <p>
+                    <strong>Disbursement Date:</strong>{" "}
+                    {formatDate(userData["Disbursement Date"])}
+                  </p>
+                )}
+                {userData["Repayment Date"] && (
+                  <p>
+                    <strong>Repayment Date:</strong>{" "}
+                    {formatDate(userData["Repayment Date"])}
+                  </p>
+                )}
+                {userData?.duration && (
+                  <p>
+                    <strong>Days Since Disbursement:</strong>{" "}
+                    {userData.duration} days
+                  </p>
+                )}
+                {userData?.penaltyDays > 0 && (
+                  <p>
+                    <strong>Days Past Due Date:</strong> {userData.penaltyDays}{" "}
+                    days
+                  </p>
+                )}
+                <p className="font-semibold text-green-700">
+                  <strong>Total Payable:</strong> ₹{userData.total}
                 </p>
-                <p>
-                  <strong>Name:</strong> {userData["Customer Name"]}
-                </p>
-                <p>
-                  <strong>State:</strong> {userData["State"]}
-                </p>
-                <p>
-                  <strong>PAN Number:</strong> {userData["Pan Number"]}
-                </p>
-                <p>
-                  <strong>Loan Amount:</strong> {userData["LOAN AMOUNT"]}
-                </p>
-                <p>
-                  <strong>Repayment Date:</strong>{" "}
-                  {formatDate(userData["Repayment Date"])}
-                </p>
+                {userData.note && (
+                  <p className="text-sm text-gray-600 italic">
+                    {userData.note}
+                  </p>
+                )}
               </div>
             </div>
           )}
@@ -155,30 +251,26 @@ export default function PanVerification({ loading, fetchData }) {
           <h4 className="text-lg font-semibold mb-4">Scan to Pay</h4>
           <div className="border border-gray-400 rounded-md p-3 sm:p-2 mb-2">
             <QRCodeCanvas
-              value={`upi://pay?pa=${upiId}&pn=POSUser${
-                userData?.["Loan Repay Amount"]
-                  ? `&am=${userData?.["Loan Repay Amount"]}`
-                  : ""
-              }&cu=INR`}
+              value={`upi://pay?pa=${upiId}&pn=POSUser&am=${userData?.total}&cu=INR`}
               size={200}
             />
           </div>
           <div className="flex flex-col gap-2 mt-4 w-full max-w-xs">
             <button
               onClick={() =>
-                (window.location.href = `upi://pay?pa=vyapar.174180804884@barodamp&pn=POSUser&am=${userData?.["Loan Repay Amount"]}&cu=INR`)
+                (window.location.href = `upi://pay?pa=vyapar.174180804884@barodamp&pn=POSUser&am=${userData?.total}&cu=INR`)
               }
               className="bg-[#ef6c00] hover:bg-[#e65100] cursor-pointer text-white py-2 px-4 rounded text-center"
             >
-              Pay ₹{userData?.["Loan Repay Amount"] || ""} to Server 1
+              Pay ₹{userData?.total || ""} to Server 1
             </button>
             <button
               onClick={() =>
-                (window.location.href = `upi://pay?pa=vyapar.174180804884@hdfcbank&pn=POSUser&am=${userData?.["Loan Repay Amount"]}&cu=INR`)
+                (window.location.href = `upi://pay?pa=vyapar.174180804884@hdfcbank&pn=POSUser&am=${userData?.total}&cu=INR`)
               }
               className="bg-[#003399] hover:bg-[#002080] cursor-pointer text-white py-2 px-4 rounded text-center"
             >
-              Pay ₹{userData?.["Loan Repay Amount"] || ""} to Server 2
+              Pay ₹{userData?.total || ""} to Server 2
             </button>
           </div>
         </div>
