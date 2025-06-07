@@ -6,17 +6,26 @@ const AdmissionForm = () => {
   const [step, setStep] = useState(1);
   const [rowId, setRowId] = useState(null);
   const [formData, setFormData] = useState({
-    name: "",
+    mobile: "", // MANDATORY
+    pancard: "", // MANDATORY
+    name: "", // MANDATORY
+    pincode: "", // MANDATORY
+    alternate_mobile: "",
     email: "",
-    phone: "",
-    city: "",
-    pinCode: "",
-    loanAmount: "",
-    tenure: "",
-    salary: "",
-    // dob: "",
+    alternate_email: "",
+    monthly_income: "",
+    loan_amount: "",
+    gender: "",
+    city_name: "",
+    state_name: "",
+    designation: "",
+    company_name: "",
+    dob: "",
     employment: "",
-    agree: false,
+    rejectd_flag: 0,
+    obligations: 0,
+    utm_campaign: "POS",
+    utm_source: "WEBSITE", // MANDATORY
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -24,7 +33,12 @@ const AdmissionForm = () => {
     const { name, value, type, checked } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [name]: type === "checkbox" ? checked : value,
+      [name]:
+        type === "checkbox"
+          ? checked
+          : type === "radio"
+          ? value
+          : value.toUpperCase(),
     }));
   };
 
@@ -32,38 +46,77 @@ const AdmissionForm = () => {
     e.preventDefault();
     setIsSubmitting(true);
     if (step === 1) {
+      // PAN card format validation before step checks
+      const panRegex = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
+      if (!panRegex.test(formData.pancard)) {
+        toast.error("Invalid PAN card format.");
+        setIsSubmitting(false);
+        return;
+      }
+
+      const phoneRegex = /^[6-9][0-9]{9}$/;
+      if (!phoneRegex.test(formData.mobile)) {
+        toast.error("Invalid phone number format.");
+        setIsSubmitting(false);
+        return;
+      }
+
       if (!formData.agree) {
         toast.error("You must agree to the terms and conditions.");
         setIsSubmitting(false);
         return;
+      } else {
+        setStep(2);
       }
       // Submit step 1 data
-      const response = await fetch(process.env.NEXT_PUBLIC_GOOGLE_FORM_URL, {
-        method: "POST",
-        body: JSON.stringify({
-          ...formData,
-          stage: "step1",
-        }),
-      });
+      // const response = await fetch(
+      //   "https://script.google.com/macros/s/AKfycbwvAJK_F7O_cKG380y1D8ThMf_hcnS6G_SK1LWeW2uRKL66JJcelpNBEjLT0EUwZJSz9w/exec",
+      //   {
+      //     method: "POST",
+      //     body: JSON.stringify({
+      //       ...formData,
+      //       stage: "step1",
+      //     }),
+      //   }
+      // );
 
-      const result = await response.json();
-      if (result.rowId) {
-        setRowId(result.rowId);
-        setStep(2);
-      } else {
-        toast.error("Failed to submit step 1");
-      }
+      // const result = await response.json();
+      // if (result.rowId) {
+      //   setRowId(result.rowId);
+      //   setStep(2);
+      // } else {
+      //   toast.error("Failed to submit step 1");
+      // }
       setIsSubmitting(false);
       return;
     }
 
     // On Step 2 submit
     if (step === 2) {
-      if (formData.loanAmount < 5000 || formData.loanAmount > 100000) {
-        toast.error("Loan amount must be between ₹5,000 and ₹100,000");
+      if (
+        !formData.mobile ||
+        !formData.pancard ||
+        !formData.name ||
+        !formData.pincode ||
+        !formData.email
+      ) {
+        toast.error("Please fill all mandatory fields from step 1.");
         setIsSubmitting(false);
         return;
       }
+
+      const pinRegex = /^[1-9][0-9]{5}$/;
+      if (!pinRegex.test(formData.pincode)) {
+        toast.error("Invalid PIN code format.");
+        setIsSubmitting(false);
+        return;
+      }
+
+      // if (formData.loanAmount < 5000 || formData.loanAmount > 100000) {
+      //   toast.error("Loan amount must be between ₹5,000 and ₹100,000");
+      //   setIsSubmitting(false);
+      //   return;
+      // }
       if (formData.employment !== "salaried") {
         toast.error("We provide loans only to salaried individuals.");
         setIsSubmitting(false);
@@ -75,31 +128,43 @@ const AdmissionForm = () => {
         return;
       }
 
-      const response = await fetch(process.env.NEXT_PUBLIC_GOOGLE_FORM_URL, {
-        method: "POST",
-        body: JSON.stringify({
-          ...formData,
-          rowId,
-          stage: "step2",
-        }),
-      });
+      const response = await fetch(
+        "http://crm.paisaonsalary.in/p/api/generateLead",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            ...formData,
+            rowId,
+            stage: "step2",
+          }),
+        }
+      );
 
       if (response.ok) {
         toast.success(
           "Application submitted successfully! We wil back to you soon."
         );
         setFormData({
-          name: "",
+          mobile: "", // MANDATORY
+          pancard: "", // MANDATORY
+          name: "", // MANDATORY
+          pincode: "", // MANDATORY
+          alternate_mobile: "",
           email: "",
-          phone: "",
-          city: "",
-          pinCode: "",
-          loanAmount: "",
-          tenure: "",
-          salary: "",
-          // dob: "",
-          employment: "",
-          agree: false,
+          alternate_email: "",
+          monthly_income: "",
+          loan_amount: "",
+          gender: "",
+          city_name: "",
+          state_name: "",
+          designation: "",
+          company_name: "",
+          dob: "",
+          rejectd_flag: 0,
+          obligations: 0,
+          utm_campaign: "POS",
+          utm_source: "WEBSITE", // MANDATORY
         });
         setStep(1);
         setRowId(null);
@@ -140,12 +205,38 @@ const AdmissionForm = () => {
         {step === 1 && (
           <>
             <input
+              type="tel"
+              name="mobile"
+              placeholder="Phone Number"
+              value={formData.mobile}
+              onChange={handleChange}
+              required
+              className="w-full px-4 py-2 border rounded-md bg-white text-black placeholder-gray-500"
+            />
+            <input
+              type="text"
+              name="pancard"
+              placeholder="PAN Card"
+              value={formData.pancard}
+              onChange={handleChange}
+              required
+              className="w-full px-4 py-2 border rounded-md bg-white text-black placeholder-gray-500"
+            />
+            <input
               type="text"
               name="name"
               placeholder="Full Name"
               value={formData.name}
               onChange={handleChange}
               required
+              className="w-full px-4 py-2 border rounded-md bg-white text-black placeholder-gray-500"
+            />
+            <input
+              type="date"
+              name="dob"
+              placeholder="Date of Birth"
+              value={formData.dob}
+              onChange={handleChange}
               className="w-full px-4 py-2 border rounded-md bg-white text-black placeholder-gray-500"
             />
             <input
@@ -157,16 +248,8 @@ const AdmissionForm = () => {
               required
               className="w-full px-4 py-2 border rounded-md bg-white text-black placeholder-gray-500"
             />
-            <input
-              type="tel"
-              name="phone"
-              placeholder="Phone Number"
-              value={formData.phone}
-              onChange={handleChange}
-              required
-              className="w-full px-4 py-2 border rounded-md bg-white text-black placeholder-gray-500"
-            />
-            <select
+
+            {/* <select
               name="city"
               value={formData.city}
               onChange={handleChange}
@@ -179,53 +262,55 @@ const AdmissionForm = () => {
               <option value="Bangalore">Bangalore</option>
               <option value="Chandigarh">Chandigarh</option>
               <option value="Other">Other</option>
-            </select>
-            <input
-              type="text"
-              name="pinCode"
-              placeholder="Pin Code"
-              value={formData.pinCode}
-              onChange={handleChange}
-              required
-              className="w-full px-4 py-2 border rounded-md bg-white text-black placeholder-gray-500"
-            />
+            </select> */}
           </>
         )}
 
         {step === 2 && (
           <>
             <input
+              type="text"
+              name="city"
+              placeholder="City"
+              value={formData.city}
+              onChange={handleChange}
+              required
+              className="w-full px-4 py-2 border rounded-md bg-white text-black placeholder-gray-500"
+            />
+            <input
+              type="text"
+              name="pincode"
+              placeholder="Pin Code"
+              value={formData.pincode}
+              onChange={handleChange}
+              required
+              className="w-full px-4 py-2 border rounded-md bg-white text-black placeholder-gray-500"
+            />
+            <input
               type="number"
-              name="loanAmount"
-              placeholder="Loan Amount (₹)"
-              value={formData.loanAmount}
+              name="monthly_income"
+              placeholder="Monthly Salary (₹)"
+              value={formData.monthly_income}
               onChange={handleChange}
               className="w-full px-4 py-2 border rounded-md bg-white text-black placeholder-gray-500"
             />
             <input
+              type="number"
+              name="loan_amount"
+              placeholder="Loan Amount (₹)"
+              value={formData.loan_amount}
+              onChange={handleChange}
+              className="w-full px-4 py-2 border rounded-md bg-white text-black placeholder-gray-500"
+            />
+            {/* <input
               type="number"
               name="tenure"
               placeholder="Tenure (Days)"
               value={formData.tenure}
               onChange={handleChange}
               className="w-full px-4 py-2 border rounded-md bg-white text-black placeholder-gray-500"
-            />
-            <input
-              type="number"
-              name="salary"
-              placeholder="Monthly Salary (₹)"
-              value={formData.salary}
-              onChange={handleChange}
-              className="w-full px-4 py-2 border rounded-md bg-white text-black placeholder-gray-500"
-            />
-            {/* <input
-              type="date"
-              name="dob"
-              placeholder="Date of Birth"
-              value={formData.dob}
-              onChange={handleChange}
-              className="w-full px-4 py-2 border rounded-md bg-white text-black placeholder-gray-500"
             /> */}
+
             <div className="space-y-2">
               <label className="font-medium text-sm text-black">
                 Employment Type
