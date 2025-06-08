@@ -129,7 +129,7 @@ const AdmissionForm = () => {
       }
 
       const response = await fetch(
-        "http://crm.paisaonsalary.in/p/api/generateLead",
+        "https://crm.paisaonsalary.in/p/api/generateLead",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
