@@ -142,6 +142,7 @@ const AdmissionForm = () => {
       );
 
       if (response.ok) {
+        console.log("response=>", response);
         toast.success(
           response?.message
             ? response?.message
