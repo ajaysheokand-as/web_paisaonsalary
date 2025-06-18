@@ -140,13 +140,10 @@ const AdmissionForm = () => {
           }),
         }
       );
-
-      if (response.ok) {
-        console.log("response=>", response);
+      const result = await response.json();
+      if (result.status == "success") {
         toast.success(
-          response?.message
-            ? response?.message
-            : "Application submitted successfully! We wil back to you soon."
+          "Application submitted successfully! We wil back to you soon. For more details contact at +919588534824"
         );
         setFormData({
           mobile: "", // MANDATORY
@@ -172,7 +169,11 @@ const AdmissionForm = () => {
         setStep(1);
         setRowId(null);
       } else {
-        toast.error("Submission failed.");
+        toast.error(
+          result?.message
+            ? result?.message + " For more details contact at +919588534824"
+            : "Submission failed."
+        );
       }
       setIsSubmitting(false);
     }
