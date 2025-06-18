@@ -143,7 +143,9 @@ const AdmissionForm = () => {
 
       if (response.ok) {
         toast.success(
-          "Application submitted successfully! We wil back to you soon."
+          response?.message
+            ? response?.message
+            : "Application submitted successfully! We wil back to you soon."
         );
         setFormData({
           mobile: "", // MANDATORY
