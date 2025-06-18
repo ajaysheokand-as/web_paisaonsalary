@@ -235,14 +235,7 @@ const AdmissionForm = () => {
               required
               className="w-full px-4 py-2 border rounded-md bg-white text-black placeholder-gray-500"
             />
-            <input
-              type="date"
-              name="dob"
-              placeholder="Date of Birth"
-              value={formData.dob}
-              onChange={handleChange}
-              className="w-full px-4 py-2 border rounded-md bg-white text-black placeholder-gray-500"
-            />
+
             <input
               type="email"
               name="email"
@@ -252,26 +245,6 @@ const AdmissionForm = () => {
               required
               className="w-full px-4 py-2 border rounded-md bg-white text-black placeholder-gray-500"
             />
-
-            {/* <select
-              name="city"
-              value={formData.city}
-              onChange={handleChange}
-              required
-              className="w-full px-4 py-2 border rounded-md bg-white text-black placeholder-gray-500"
-            >
-              <option value="">Select City</option>
-              <option value="Delhi">Delhi</option>
-              <option value="Mumbai">Mumbai</option>
-              <option value="Bangalore">Bangalore</option>
-              <option value="Chandigarh">Chandigarh</option>
-              <option value="Other">Other</option>
-            </select> */}
-          </>
-        )}
-
-        {step === 2 && (
-          <>
             <input
               type="text"
               name="city"
@@ -290,31 +263,11 @@ const AdmissionForm = () => {
               required
               className="w-full px-4 py-2 border rounded-md bg-white text-black placeholder-gray-500"
             />
-            <input
-              type="number"
-              name="monthly_income"
-              placeholder="Monthly Salary (₹)"
-              value={formData.monthly_income}
-              onChange={handleChange}
-              className="w-full px-4 py-2 border rounded-md bg-white text-black placeholder-gray-500"
-            />
-            <input
-              type="number"
-              name="loan_amount"
-              placeholder="Loan Amount (₹)"
-              value={formData.loan_amount}
-              onChange={handleChange}
-              className="w-full px-4 py-2 border rounded-md bg-white text-black placeholder-gray-500"
-            />
-            {/* <input
-              type="number"
-              name="tenure"
-              placeholder="Tenure (Days)"
-              value={formData.tenure}
-              onChange={handleChange}
-              className="w-full px-4 py-2 border rounded-md bg-white text-black placeholder-gray-500"
-            /> */}
+          </>
+        )}
 
+        {step === 2 && (
+          <>
             <div className="space-y-2">
               <label className="font-medium text-sm text-black">
                 Employment Type
@@ -346,6 +299,48 @@ const AdmissionForm = () => {
                 </label>
               </div>
             </div>
+            <input
+              type="text"
+              name="company_name"
+              placeholder="Company Name"
+              value={formData.company}
+              onChange={handleChange}
+              required
+              className="w-full px-4 py-2 border rounded-md bg-white text-black placeholder-gray-500"
+            />
+            <input
+              type="text"
+              name="designation"
+              placeholder="Designation"
+              value={formData.designation}
+              onChange={handleChange}
+              required
+              className="w-full px-4 py-2 border rounded-md bg-white text-black placeholder-gray-500"
+            />
+            <input
+              type="number"
+              name="monthly_income"
+              placeholder="Monthly Salary (₹)"
+              value={formData.monthly_income}
+              onChange={handleChange}
+              className="w-full px-4 py-2 border rounded-md bg-white text-black placeholder-gray-500"
+            />
+            <input
+              type="number"
+              name="loan_amount"
+              placeholder="Loan Amount (₹)"
+              value={formData.loan_amount}
+              onChange={handleChange}
+              className="w-full px-4 py-2 border rounded-md bg-white text-black placeholder-gray-500"
+            />
+            {/* <input
+              type="number"
+              name="tenure"
+              placeholder="Tenure (Days)"
+              value={formData.tenure}
+              onChange={handleChange}
+              className="w-full px-4 py-2 border rounded-md bg-white text-black placeholder-gray-500"
+            /> */}
           </>
         )}
 
