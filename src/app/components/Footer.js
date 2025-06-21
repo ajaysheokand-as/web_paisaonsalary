@@ -108,7 +108,8 @@ const Footer = () => {
       </div>
 
       <div className="text-center mt-10 text-sm text-gray-500">
-        © {new Date().getFullYear()} Paisa On Salary. All rights reserved.
+        © {new Date().getFullYear()} Paisa On Salary, powered by Aman Fincap
+        Limited. All rights reserved.
       </div>
     </footer>
   );
