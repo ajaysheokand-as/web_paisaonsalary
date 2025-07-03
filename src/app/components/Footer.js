@@ -1,6 +1,6 @@
 "use client";
 
-import { ADDRESS, EMAIL, PHONE, TITLE } from "@/constants";
+import { ADDRESS, EMAIL, HEAD_OFFICE, PHONE, TITLE } from "@/constants";
 import Link from "next/link";
 import { FaInstagram, FaLinkedin, FaGoogle, FaFacebook } from "react-icons/fa";
 
@@ -19,10 +19,6 @@ const Footer = () => {
             documentation, and 100% digital disbursals directly to your bank
             account.
           </p>
-        </div>
-
-        {/* Social Media */}
-        <div>
           <h3 className="text-lg font-semibold text-white mb-3">Follow Us</h3>
           <div className="flex space-x-4 text-xl">
             <Link
@@ -56,15 +52,42 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Contact Info */}
+        {/* Social Media */}
         <div>
-          <h3 className="text-lg font-semibold text-white mb-3">
-            Connect With Us
-          </h3>
-          <ul className="space-y-2 text-sm">
-            <li>📍 {ADDRESS}</li>
-            <li>📧 {EMAIL}</li>
-            <li>📞 {PHONE}</li>
+          <h3 className="text-lg font-semibold text-white mb-3">Policies</h3>
+          <ul className="space-y-2">
+            <li>
+              <Link
+                href="/corporate-governance"
+                className="hover:text-white transition"
+              >
+                Corporate Governance
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/fair-practice-code"
+                className="hover:text-white transition"
+              >
+                Fair Practice Code
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/risk-management"
+                className="hover:text-white transition"
+              >
+                Risk Management
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/interest-rate"
+                className="hover:text-white transition"
+              >
+                Interest Rate
+              </Link>
+            </li>
           </ul>
         </div>
 
@@ -103,6 +126,23 @@ const Footer = () => {
                 Terms and Conditions
               </Link>
             </li>
+          </ul>
+        </div>
+
+        {/* Contact Info */}
+        <div>
+          <h3 className="text-lg font-semibold text-white mb-3">
+            Connect With Us
+          </h3>
+          <ul className="space-y-2 text-sm">
+            <li>
+              <p>Head Office:</p>
+              <p>📍 {HEAD_OFFICE}</p>
+              <p>Branch Address:</p>
+              <p>📍 {ADDRESS}</p>
+            </li>
+            <li>📧 {EMAIL}</li>
+            <li>📞 {PHONE}</li>
           </ul>
         </div>
       </div>
