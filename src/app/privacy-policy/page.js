@@ -18,7 +18,7 @@ export default function PrivacyPolicy() {
               >
                 https://www.paisaonsalary.com
               </a>
-              &nbsp;in partnership with NAMAN FINLEASE PRIVATE LIMITED, a
+              &nbsp;in partnership with AMAN FINCAP PRIVATE LIMITED, a
               registered NBFC. This Privacy Policy outlines how we collect, use,
               share, and protect your personal information when you use our
               financial services.
