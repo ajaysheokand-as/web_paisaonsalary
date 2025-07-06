@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { toast } from "react-hot-toast";
 
 const AdmissionForm = () => {
@@ -25,8 +25,13 @@ const AdmissionForm = () => {
     rejectd_flag: 0,
     obligations: 0,
     utm_campaign: "POS",
-    utm_source: "WEBSITE", // MANDATORY
+    // utm_source will be set via useEffect
   });
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const source = urlParams.get("utm_source") || "WEBSITE";
+    setFormData((prev) => ({ ...prev, utm_source: source.toUpperCase() }));
+  }, []);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e) => {
