@@ -94,7 +94,8 @@ export default function RootLayout({ children }) {
             dangerouslySetInnerHTML={{
               __html: `
                         <img height="1" width="1" style="display:none"
-                        src="https://www.facebook.com/tr?id=2072012063285055&ev=PageView&noscript=1" />
+                        src="https://www.facebook.com/tr?id=2072012063285055&ev=PageView&noscript=1"
+                        />
                       `,
             }}
           />
