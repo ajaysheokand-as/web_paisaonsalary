@@ -17,12 +17,6 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-// export const metadata = {
-//   title: "Paisa On Salary",
-//   description:
-//     "Paisa On Salary offers fast and secure short-term loans exclusively for salaried individuals. Get instant approval, 100% digital processing, and same-day disbursal—all from your mobile device.",
-// };
-
 export default function RootLayout({ children }) {
   const pathname = usePathname();
   const hideLayout = pathname.startsWith("/e-kyc");
@@ -32,15 +26,31 @@ export default function RootLayout({ children }) {
         className={` ${geistSans.variable} ${geistMono.variable} antialiased bg-white dark:bg-white`}
       >
         <Head>
-          <title>{TITLE}</title>
+          <title>Paisa On Salary – Instant Salary Loans</title>
+          <meta charSet="UTF-8" />
           <meta
-            name={TITLE}
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+          />
+          <meta
+            name="description"
             content="Paisa On Salary offers fast and secure short-term loans exclusively for salaried individuals. Get instant approval, 100% digital processing, and same-day disbursal—all from your mobile device."
           />
+          <meta
+            name="keywords"
+            content="salary loan, instant loan, paisa on salary, payday loan, short term loan, online loan for salaried"
+          />
+          <meta name="theme-color" content="#ffffff" />
           <link rel="icon" href="/favicon.ico" />
+          <link rel="canonical" href="https://paisaonsalary.com" />
+          <link rel="apple-touch-icon" href="/apple-icon.png" />
+          <link rel="manifest" href="/manifest.json" />
 
           {/* Open Graph */}
-          <meta property="og:title" content="Paisa On Salary" />
+          <meta
+            property="og:title"
+            content="Paisa On Salary – Instant Salary Loans"
+          />
           <meta
             property="og:description"
             content="Paisa On Salary offers fast and secure short-term loans exclusively for salaried individuals. Get instant approval, 100% digital processing, and same-day disbursal—all from your mobile device."
@@ -51,12 +61,40 @@ export default function RootLayout({ children }) {
 
           {/* Twitter Card */}
           <meta name="twitter:card" content="summary_large_image" />
-          <meta property="og:title" content="Paisa On Salary" />
+          <meta
+            name="twitter:title"
+            content="Paisa On Salary – Instant Salary Loans"
+          />
           <meta
             name="twitter:description"
             content="Paisa On Salary offers fast and secure short-term loans exclusively for salaried individuals. Get instant approval, 100% digital processing, and same-day disbursal—all from your mobile device."
           />
           <meta name="twitter:image" content="/PaisaOnSalary.jpeg" />
+
+          {/* Structured Data */}
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: `{
+                "@context": "https://schema.org",
+                "@type": "FinancialService",
+                "name": "Paisa On Salary",
+                "url": "https://paisaonsalary.com",
+                "logo": "https://paisaonsalary.com/PaisaOnSalary.jpeg",
+                "description": "Get short-term salary loans instantly with 100% digital processing. Trusted by salaried professionals across India.",
+                "address": {
+                  "@type": "PostalAddress",
+                  "addressLocality": "New Delhi",
+                  "addressCountry": "IN"
+                },
+                "contactPoint": {
+                  "@type": "ContactPoint",
+                  "telephone": "+91-9588534824",
+                  "contactType": "customer service"
+                }
+              }`,
+            }}
+          />
         </Head>
 
         <Toaster position="top-center" />
