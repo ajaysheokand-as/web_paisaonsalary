@@ -19,7 +19,15 @@ const parseDate = (dateStr) => {
 
 export default function PanVerification({ loading, fetchData }) {
   const [pancard, setPancard] = useState("");
-  const [upiId] = useState("vyapar.174180804884@hdfcbank");
+  const [upiSource, setUpiSource] = useState("crm");
+  const upiId =
+    upiSource === "cms"
+      ? "9891780773.eazypay@icici"
+      : "vyapar.174180804884@hdfcbank";
+  const companyName =
+    upiSource === "cms"
+      ? "AMAN FINCAP LIMITED "
+      : "Naman Finlease Private Limited";
   const [userData, setUserData] = useState({});
   const [isFetching, setIsFetching] = useState(false);
 
@@ -54,26 +62,40 @@ export default function PanVerification({ loading, fetchData }) {
     }
 
     setIsFetching(true);
+
+    const fetchRepayment = async (url) => {
+      const res = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ pancard }),
+      });
+      if (!res.ok) throw new Error("Failed to fetch repayment details");
+      return await res.json();
+    };
+
     try {
-      const response = await fetch(
-        `https://crm.paisaonsalary.in/p/api/repayment`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ pancard }),
-        }
+      let responseData = await fetchRepayment(
+        "https://crm.paisaonsalary.in/p/api/repayment"
       );
-      if (!response.ok) {
-        throw new Error("Failed to fetch repayment details");
+
+      if (responseData.status !== 1 || !responseData.data) {
+        // Try secondary source if primary fails
+        responseData = await fetchRepayment(
+          "https://cms.paisaonsalary.in/p/api/repayment"
+        );
+        if (responseData.status === 1 && responseData.data) {
+          setUpiSource("cms");
+        }
+      } else {
+        setUpiSource("crm");
       }
-      const responseData = await response.json();
+
       if (responseData.status !== 1 || !responseData.data) {
         setUserData({ message: "PAN not found" });
       } else {
         setUserData(responseData.data);
       }
+
       console.log("response Data=>", responseData);
     } catch (error) {
       console.error("Error fetching repayment details:", error);
@@ -197,9 +219,7 @@ export default function PanVerification({ loading, fetchData }) {
         </div>
         {/* Right Section: QR Code, logos, etc. */}
         <div className="w-full md:w-1/2 px-4 py-4 sm:px-2 sm:py-2 flex flex-col items-center justify-center">
-          <h3 className="text-xl font-bold mb-2 text-center">
-            Naman Finlease Private Limited
-          </h3>
+          <h3 className="text-xl font-bold mb-2 text-center">{companyName}</h3>
           <h4 className="text-lg font-semibold mb-4">Scan to Pay</h4>
           <div className="border border-gray-400 rounded-md p-3 sm:p-2 mb-2">
             <QRCodeCanvas

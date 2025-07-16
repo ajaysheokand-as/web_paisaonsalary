@@ -37,18 +37,18 @@ export default function RepayLoan() {
   const handleFetchData = async (pancardValue) => {
     setPancard(pancardValue);
     // setLoading(true);
-    try {
-      const dataset = await getRepaymentDetailsByPan(pancardValue);
-      console.log("dataset", dataset);
-      showMessage(dataset.message);
-      if (dataset.status === 1) {
-        setContent("panotp");
-      }
-    } catch (error) {
-      console.error("Error sending OTP:", error);
-    } finally {
-      // setLoading(false);
-    }
+    // try {
+    //   const dataset = await getRepaymentDetailsByPan(pancardValue);
+    //   console.log("dataset", dataset);
+    //   showMessage(dataset.message);
+    //   if (dataset.status === 1) {
+    //     setContent("panotp");
+    //   }
+    // } catch (error) {
+    //   console.error("Error sending OTP:", error);
+    // } finally {
+    //   setLoading(false);
+    // }
   };
 
   const handleVerifyOtp = async (otpValue) => {
