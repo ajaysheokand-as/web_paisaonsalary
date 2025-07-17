@@ -7,6 +7,7 @@ import Head from "next/head";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import { TITLE } from "@/constants";
+import Script from "next/script";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -25,6 +26,10 @@ export default function RootLayout({ children }) {
       <body
         className={` ${geistSans.variable} ${geistMono.variable} antialiased bg-white dark:bg-white`}
       >
+        <Script
+          src="https://cdn-in.pagesense.io/js/60043956077/8f602df488af4951b11b89a7bb69e290.js"
+          strategy="afterInteractive"
+        />
         <Head>
           <title>Paisa On Salary – Instant Salary Loans</title>
           <meta charSet="UTF-8" />
@@ -70,6 +75,7 @@ export default function RootLayout({ children }) {
             content="Paisa On Salary offers fast and secure short-term loans exclusively for salaried individuals. Get instant approval, 100% digital processing, and same-day disbursal—all from your mobile device."
           />
           <meta name="twitter:image" content="/PaisaOnSalary.jpeg" />
+          {/* <Script src="https://cdn-in.pagesense.io/js/60043956077/8f602df488af4951b11b89a7bb69e290.js"></Script> */}
 
           {/* <!-- Meta Pixel Code --> */}
           {/* Meta Pixel Code */}
