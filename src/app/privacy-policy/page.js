@@ -11,14 +11,14 @@ export default function PrivacyPolicy() {
           <section>
             <h2 className="text-2xl font-semibold mb-2">1. Introduction</h2>
             <p>
-              Paisa On Salary operates the website &nbsp;
+              RupeyLo operates the website &nbsp;
               <a
                 href="https://www.paisaonsalary.com"
                 className="text-blue-600 underline"
               >
                 https://www.paisaonsalary.com
               </a>
-              &nbsp;in partnership with AMAN FINCAP PRIVATE LIMITED, a
+              &nbsp;in partnership with Sunlog Credits Pvt Ltd, a
               registered NBFC. This Privacy Policy outlines how we collect, use,
               share, and protect your personal information when you use our
               financial services.

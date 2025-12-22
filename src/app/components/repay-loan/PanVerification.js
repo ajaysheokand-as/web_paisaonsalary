@@ -26,8 +26,8 @@ export default function PanVerification({ loading, fetchData }) {
       : "vyapar.174180804884@hdfcbank";
   const companyName =
     upiSource === "cms"
-      ? "AMAN FINCAP LIMITED "
-      : "Naman Finlease Private Limited";
+      ? "Sunlog Credits Pvt Ltd "
+      : "Sunlog Credits Pvt Ltd";
   const [userData, setUserData] = useState({});
   const [isFetching, setIsFetching] = useState(false);
 

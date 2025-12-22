@@ -8,7 +8,7 @@ export default function corporateGovernance() {
       <div className="px-6 md:px-20 py-12 bg-[#f9f9f9] text-[#1D3E50]">
         <div className="space-y-6 max-w-6xl mx-auto text-lg leading-relaxed">
           <h1 className="text-3xl font-bold text-center mb-4">
-            AMAN FINANCE LIMITED
+            Sunlog Credits Pvt Ltd
           </h1>
           <h2 className="text-2xl font-semibold text-center mb-2">
             Corporate Governance Policy

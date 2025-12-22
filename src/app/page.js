@@ -17,7 +17,7 @@ export default function Home() {
       <CoursesOffered />
       {/* <Testimonials /> */}
       <LoanHighlights />
-      <DownloadApp />
+      {/* <DownloadApp /> */}
       <FAQSection />
       <CTABanner />
     </>

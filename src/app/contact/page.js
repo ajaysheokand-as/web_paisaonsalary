@@ -5,7 +5,7 @@ import Header from "../components/common/Header";
 const Contact = () => {
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header title="Connect with Paisa On Salary" />
+      <Header title="Connect with RupeyLo" />
       {/* <header className="text-center py-12 bg-[#1D3E50] text-white">
         <h1 className="text-4xl font-bold"></h1>
         <p className="mt-2 text-lg">

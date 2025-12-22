@@ -31,7 +31,7 @@ export default function RootLayout({ children }) {
           strategy="afterInteractive"
         />
         <Head>
-          <title>Paisa On Salary – Instant Salary Loans</title>
+          <title>RupeyLo – Instant Salary Loans</title>
           <meta charSet="UTF-8" />
           <meta
             name="viewport"
@@ -39,11 +39,11 @@ export default function RootLayout({ children }) {
           />
           <meta
             name="description"
-            content="Paisa On Salary offers fast and secure short-term loans exclusively for salaried individuals. Get instant approval, 100% digital processing, and same-day disbursal—all from your mobile device."
+            content="RupeyLo offers fast and secure short-term loans exclusively for salaried individuals. Get instant approval, 100% digital processing, and same-day disbursal—all from your mobile device."
           />
           <meta
             name="keywords"
-            content="salary loan, instant loan, paisa on salary, payday loan, short term loan, online loan for salaried"
+            content="salary loan, instant loan, RupeyLo, payday loan, short term loan, online loan for salaried"
           />
           <meta name="theme-color" content="#ffffff" />
           <link rel="icon" href="/favicon.ico" />
@@ -54,11 +54,11 @@ export default function RootLayout({ children }) {
           {/* Open Graph */}
           <meta
             property="og:title"
-            content="Paisa On Salary – Instant Salary Loans"
+            content="RupeyLo – Instant Salary Loans"
           />
           <meta
             property="og:description"
-            content="Paisa On Salary offers fast and secure short-term loans exclusively for salaried individuals. Get instant approval, 100% digital processing, and same-day disbursal—all from your mobile device."
+            content="RupeyLo offers fast and secure short-term loans exclusively for salaried individuals. Get instant approval, 100% digital processing, and same-day disbursal—all from your mobile device."
           />
           <meta property="og:image" content="/PaisaOnSalary.jpeg" />
           <meta property="og:url" content="https://paisaonsalary.com" />
@@ -68,11 +68,11 @@ export default function RootLayout({ children }) {
           <meta name="twitter:card" content="summary_large_image" />
           <meta
             name="twitter:title"
-            content="Paisa On Salary – Instant Salary Loans"
+            content="RupeyLo – Instant Salary Loans"
           />
           <meta
             name="twitter:description"
-            content="Paisa On Salary offers fast and secure short-term loans exclusively for salaried individuals. Get instant approval, 100% digital processing, and same-day disbursal—all from your mobile device."
+            content="RupeyLo offers fast and secure short-term loans exclusively for salaried individuals. Get instant approval, 100% digital processing, and same-day disbursal—all from your mobile device."
           />
           <meta name="twitter:image" content="/PaisaOnSalary.jpeg" />
           {/* <Script src="https://cdn-in.pagesense.io/js/60043956077/8f602df488af4951b11b89a7bb69e290.js"></Script> */}
@@ -114,7 +114,7 @@ export default function RootLayout({ children }) {
               __html: `{
                 "@context": "https://schema.org",
                 "@type": "FinancialService",
-                "name": "Paisa On Salary",
+                "name": "RupeyLo",
                 "url": "https://paisaonsalary.com",
                 "logo": "https://paisaonsalary.com/PaisaOnSalary.jpeg",
                 "description": "Get short-term salary loans instantly with 100% digital processing. Trusted by salaried professionals across India.",

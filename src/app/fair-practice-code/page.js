@@ -8,7 +8,7 @@ export default function fairPracticeCode() {
       <div className="px-6 md:px-20 py-12 bg-[#f9f9f9] text-[#1D3E50]">
         <div className="space-y-6 max-w-6xl mx-auto text-lg leading-relaxed">
           <h1 className="text-3xl font-bold text-center mb-4">
-            AMAN FINCAP LIMITED
+            Sunlog Credits Pvt Ltd
           </h1>
           <h2 className="text-2xl font-semibold text-center mb-2">
             Fair Practice Code
@@ -26,7 +26,7 @@ export default function fairPracticeCode() {
               fair corporate practices when dealing with customers.`}
             </p>
             <p>
-              Aman Fincap Limited (“the Company”) adopts these guidelines and
+              Sunlog Credits Pvt Ltd (“the Company”) adopts these guidelines and
               modifies this Code as required from time to time. The Company
               offers financial products to eligible applicants without
               discrimination on race, caste, color, religion, sex, marital

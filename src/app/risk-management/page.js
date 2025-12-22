@@ -8,17 +8,17 @@ export default function riskManagement() {
       <div className="px-6 md:px-20 py-12 bg-[#f9f9f9] text-[#1D3E50]">
         <div className="space-y-6 max-w-6xl mx-auto text-lg leading-relaxed">
           <h1 className="text-3xl font-bold text-center mb-4">
-            AMAN FINCAP LIMITED
+            Sunlog Credits Pvt Ltd
           </h1>
           <h2 className="text-2xl font-semibold text-center mb-2">
             Risk Management Policy
           </h2>
-          <p className="text-center mb-4">(Brand Name: Paisa On Salary)</p>
+          <p className="text-center mb-4">(Brand Name: RupeyLo)</p>
 
           <section>
             <h3 className="text-xl font-semibold mb-2">1. Preamble</h3>
             <p>
-              The Board of Directors (“Board”) of Aman Fincap Limited
+              The Board of Directors (“Board”) of Sunlog Credits Pvt Ltd
               (“Company”) has adopted the following policy, encompassing
               practices relating to identification, assessment, monitoring, and
               mitigation/treatment of various risks to the business.
@@ -68,7 +68,7 @@ export default function riskManagement() {
                 <strong>Board:</strong> Board of Directors of the Company
               </li>
               <li>
-                <strong>Company:</strong> Aman Fincap Limited
+                <strong>Company:</strong> Sunlog Credits Pvt Ltd
               </li>
               <li>
                 <strong>Directors:</strong> Members of the Board
