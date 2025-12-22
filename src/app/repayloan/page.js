@@ -94,7 +94,7 @@ export default function RepayLoan() {
       <Header title="Loan Repayment" />
       <div className="w-full min-h-screen flex flex-col items-center bg-white dark:bg-white text-gray-900 dark:text-gray-900 border border-gray-300 dark:border-gray-300 shadow-md">
         <div className="w-full max-w-6xl px-0 sm:px-2 md:px-8 mx-auto">
-          <div className="bg-white rounded-lg shadow-md p-2 sm:p-2 md:p-8 mb-6 sm:mb-8">
+          {/* <div className="bg-white rounded-lg shadow-md p-2 sm:p-2 md:p-8 mb-6 sm:mb-8">
             {content === "pannumber" ? (
               <PanVerification
                 // onOtpReceived={handleSendOtp}
@@ -116,10 +116,10 @@ export default function RepayLoan() {
             ) : content === "paymentSuccess" ? (
               <PaymentSuccess status={paymentStatus} />
             ) : null}
-          </div>
+          </div> */}
           <BankDetails
             bankName="Bank of Baroda"
-            companyName="Naman Finlease Private Ltd"
+            companyName="Sunlog Credits Pvt Ltd"
             accountNo="45230200001507"
             ifscCode="BARBOMALVIY"
             branchAddress="SELECT CITYWALK. SAKET BRANCH, DELHI 110017"
@@ -129,7 +129,7 @@ export default function RepayLoan() {
           />
           <BankDetails
             bankName="HDFC Bank Ltd"
-            companyName="Naman Finlease Private Ltd"
+            companyName="Sunlog Credits Pvt Ltd"
             accountNo="59208588888450"
             ifscCode="HDFC0000248"
             branchAddress="S-355 Panchshila Park New Delhi 110017"

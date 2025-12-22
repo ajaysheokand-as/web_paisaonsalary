@@ -14,7 +14,7 @@ const CTABanner = () => {
         </h2>
         <p className="text-lg mb-6">
           Apply for a short-term loan through{" "}
-          <span className="font-semibold">Paisa On Salary</span> and get funds
+          <span className="font-semibold">RupeyLo</span> and get funds
           directly in your bank within minutes. Safe, secure, and 100% digital.
         </p>
         <button

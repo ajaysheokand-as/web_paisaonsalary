@@ -10,7 +10,7 @@ const testimonials = [
   {
     name: "Rahul Mehra",
     feedback:
-      "Paisa On Salary helped me in a financial emergency. The loan was processed instantly and without hassle.",
+      "RupeyLo helped me in a financial emergency. The loan was processed instantly and without hassle.",
     avatar: "https://randomuser.me/api/portraits/men/75.jpg",
   },
   {
@@ -28,13 +28,13 @@ const testimonials = [
   {
     name: "Neha Sinha",
     feedback:
-      "I was skeptical at first, but Paisa On Salary exceeded my expectations. Smooth and quick!",
+      "I was skeptical at first, but RupeyLo exceeded my expectations. Smooth and quick!",
     avatar: "https://randomuser.me/api/portraits/women/85.jpg",
   },
   {
     name: "Manish Rawat",
     feedback:
-      "Getting a short-term loan was never this easy. Kudos to the team at Paisa On Salary!",
+      "Getting a short-term loan was never this easy. Kudos to the team at RupeyLo!",
     avatar: "https://randomuser.me/api/portraits/men/91.jpg",
   },
 ];
@@ -48,7 +48,7 @@ const Testimonials = () => {
         </h2>
         <p className="text-gray-600 max-w-2xl mx-auto mb-10">
           Trusted by salaried professionals across India, here’s what our
-          customers say about their experience with Paisa On Salary.
+          customers say about their experience with RupeyLo.
         </p>
         <div className="relative">
           <Swiper

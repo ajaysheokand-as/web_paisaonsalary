@@ -9,12 +9,12 @@ export default function AboutPage() {
   return (
     <div className="min-h-screen bg-gray-50 text-gray-800">
       <Header
-        title="About Paisa On Salary"
+        title="About RupeyLo"
         des="A smart solution for salaried individuals needing instant financial
           help"
       />
       {/* <header className="text-center bg-[#1D3E50] text-white mb-10 pt-[100px] pb-12 px-4">
-        <h1 className="text-4xl font-bold">About Paisa On Salary</h1>
+        <h1 className="text-4xl font-bold">About RupeyLo</h1>
         <p className="mt-2 text-lg">
           A smart solution for salaried individuals needing instant financial
           help
@@ -72,7 +72,7 @@ export default function AboutPage() {
           Our Journey & Team
         </h2>
         <p className="text-gray-700 text-center mb-10 max-w-2xl mx-auto">
-          {`At Paisa On Salary, we’re driven by the mission to empower salaried
+          {`At RupeyLo, we’re driven by the mission to empower salaried
           individuals with financial freedom. Our dedicated team and streamlined
           process ensure you’re supported every step of the way.`}
         </p>
