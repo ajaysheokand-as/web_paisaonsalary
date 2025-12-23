@@ -2,7 +2,7 @@
 
 import { ADDRESS, EMAIL, HEAD_OFFICE, PHONE, TITLE } from "@/constants";
 import Link from "next/link";
-import { FaInstagram, FaLinkedin, FaGoogle, FaFacebook } from "react-icons/fa";
+import { FaInstagram, FaLinkedin, FaGoogle, FaFacebook, FaWhatsapp } from "react-icons/fa";
 
 const Footer = () => {
   return (
@@ -23,7 +23,7 @@ const Footer = () => {
             <h3 className="text-lg font-semibold text-white">Follow Us</h3>
             <div className="flex space-x-4 text-xl">
               <Link
-                href="#"
+                href="https://www.instagram.com/rupeylo?igsh=MmM1Zm5zMGc3ZDN1"
                 target="_blank"
                 className="hover:text-cyan-200 transition"
               >
@@ -37,18 +37,18 @@ const Footer = () => {
                 <FaLinkedin />
               </Link>
               <Link
-                href="#"
+                href="https://www.facebook.com/share/1C3GGwZ9EF/"
                 target="_blank"
                 className="hover:text-cyan-200 transition"
               >
                 <FaFacebook />
               </Link>
               <Link
-                href="#"
+                href="https://wa.me/message/QUCVUR336FFJL1"
                 target="_blank"
                 className="hover:text-cyan-200 transition"
               >
-                <FaGoogle />
+                <FaWhatsapp />
               </Link>
             </div>
           </div>
