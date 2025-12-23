@@ -7,37 +7,42 @@ const CTABanner = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
-    <section className="bg-gradient-to-r from-[#20464C] to-[#4D6571] text-white py-16 px-4">
+    <section className="bg-gradient-to-r from-[#0F172A] via-[#1E293B] to-[#020617] text-gray-100 py-20 px-4">
       <div className="max-w-4xl mx-auto text-center">
-        <h2 className="text-3xl md:text-4xl font-bold mb-4">
-          {`🚀 Need Instant Cash? We've Got You Covered!`}
+        <h2 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">
+          Need Instant Cash? We’ve Got You Covered
         </h2>
-        <p className="text-lg mb-6">
-          Apply for a short-term loan through{" "}
-          <span className="font-semibold">RupeyLo</span> and get funds
-          directly in your bank within minutes. Safe, secure, and 100% digital.
+
+        <p className="text-base md:text-lg text-gray-300 mb-8 leading-relaxed">
+          Apply for a short-term loan with{" "}
+          <span className="font-semibold text-white">RupeyLo</span> and receive
+          funds directly in your bank within minutes. Secure, fast, and fully
+          digital.
         </p>
-        <button
+
+        {/* <button
           onClick={() => setIsModalOpen(true)}
-          className="bg-[#E3ECEC] text-[#1E293B] font-semibold px-6 py-3 rounded-full shadow-md hover:bg-[#cfd9d9] hover:scale-105 transition transform duration-300 cursor-pointer"
+          className="bg-gradient-to-r from-emerald-500 to-emerald-600 text-black font-semibold px-8 py-3 rounded-full shadow-lg hover:from-emerald-400 hover:to-emerald-500 hover:shadow-emerald-500/30 transition-all duration-300"
         >
           Get Loan Now
         </button>
+
         {isModalOpen && (
-          <div className="fixed inset-0 z-50 backdrop-blur-sm bg-white/10 flex items-center justify-center">
-            <div className="bg-white rounded-lg shadow-lg p-8 w-full max-w-lg relative">
+          <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center px-4">
+            <div className="bg-[#020617] border border-gray-700 rounded-xl shadow-2xl p-8 w-full max-w-lg relative">
               <button
                 onClick={() => setIsModalOpen(false)}
-                className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
+                className="absolute top-3 right-3 text-gray-400 hover:text-white text-lg"
               >
                 ✕
               </button>
-              <div className="w-full mx-auto text-gray-800">
+
+              <div className="w-full mx-auto text-gray-200">
                 <AdmissionForm />
               </div>
             </div>
           </div>
-        )}
+        )} */}
       </div>
     </section>
   );

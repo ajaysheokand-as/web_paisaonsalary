@@ -221,9 +221,9 @@ const AdmissionForm = () => {
   };
 
   return (
-    <div className="w-full">
+<div className="w-full max-w-md mx-auto sm:max-w-lg md:max-w-3xl">
       {/* Form Header */}
-      <div className="text-center mb-8 pt-4 px-6">
+<div className="text-center mb-6 pt-4 px-4 sm:px-6">
         <h2 className="text-2xl font-bold text-gray-900 mb-2">
           Get Your Loan in 3 Easy Steps
         </h2>
@@ -231,40 +231,44 @@ const AdmissionForm = () => {
       </div>
 
       {/* Progress Steps */}
-      <div className="px-6 mb-8">
-        <div className="flex items-center justify-between relative">
-          <div className="absolute top-4 left-0 right-0 h-1 bg-gray-200 -z-10">
-            <div 
-              className="h-full bg-gradient-to-r from-blue-500 to-indigo-600 transition-all duration-300"
-              style={{ width: step === 1 ? '0%' : '50%' }}
-            ></div>
-          </div>
-          
-          <div className="flex flex-col items-center">
-            <div className={`w-10 h-10 rounded-full flex items-center justify-center mb-2 ${step === 1 ? 'bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow-lg shadow-blue-500/30' : 'bg-white border-2 border-blue-500 text-blue-600'}`}>
-              <span className="font-semibold">1</span>
-            </div>
-            <span className="text-sm font-medium text-gray-700">Personal Details</span>
-          </div>
-          
-          <div className="flex flex-col items-center">
-            <div className={`w-10 h-10 rounded-full flex items-center justify-center mb-2 ${step === 2 ? 'bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow-lg shadow-blue-500/30' : step > 2 ? 'bg-blue-100 text-blue-600 border-2 border-blue-500' : 'bg-white border-2 border-gray-300 text-gray-400'}`}>
-              <span className="font-semibold">2</span>
-            </div>
-            <span className="text-sm font-medium text-gray-700">Loan Details</span>
-          </div>
-          
-          <div className="flex flex-col items-center">
-            <div className="w-10 h-10 rounded-full flex items-center justify-center mb-2 bg-white border-2 border-gray-300 text-gray-400">
-              <span className="font-semibold">3</span>
-            </div>
-            <span className="text-sm font-medium text-gray-700">Approval</span>
-          </div>
+<div className="px-6 mb-8">
+  <div className="flex items-center justify-between relative">
+    <div className="absolute top-4 left-4 right-4 h-1 bg-gray-200 dark:bg-gray-700 z-0">
+      <div 
+        className="h-full bg-gradient-to-r from-blue-500 to-indigo-600 transition-all duration-300"
+        style={{ width: step === 1 ? '0%' : '50%' }}
+      ></div>
+    </div>
+    
+    <div className="flex items-center justify-between w-full relative z-10">
+      {/* Step 1 - Container with proper spacing */}
+      <div className="flex flex-col items-center flex-1">
+        <div className={`w-10 h-10 rounded-full flex items-center justify-center mb-2 ${step === 1 ? 'bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow-lg shadow-blue-500/30' : 'bg-white dark:bg-gray-800 border-2 border-blue-500 text-blue-600 dark:text-blue-400'}`}>
+          <span className="font-semibold">1</span>
         </div>
+        <span className="text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 text-center">Personal Details</span>
       </div>
-
+      
+      {/* Step 2 - Container with proper spacing */}
+      <div className="flex flex-col items-center flex-1">
+        <div className={`w-10 h-10 rounded-full flex items-center justify-center mb-2 ${step === 2 ? 'bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow-lg shadow-blue-500/30' : step > 2 ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 border-2 border-blue-500' : 'bg-white dark:bg-gray-800 border-2 border-gray-300 dark:border-gray-600 text-gray-400'}`}>
+          <span className="font-semibold">2</span>
+        </div>
+        <span className="text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 text-center">Loan Details</span>
+      </div>
+      
+      {/* Step 3 - Container with proper spacing */}
+      <div className="flex flex-col items-center flex-1">
+        <div className="w-10 h-10 rounded-full flex items-center justify-center mb-2 bg-white dark:bg-gray-800 border-2 border-gray-300 dark:border-gray-600 text-gray-400">
+          <span className="font-semibold">3</span>
+        </div>
+        <span className="text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 text-center">Approval</span>
+      </div>
+    </div>
+  </div>
+</div>
       {/* Form Content */}
-      <form onSubmit={handleSubmit} className="space-y-5 px-6 pb-6">
+<form onSubmit={handleSubmit} className="space-y-4 px-4 sm:px-6 pb-6">
         {step === 1 && (
           <>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -280,7 +284,7 @@ const AdmissionForm = () => {
                   onChange={handleChange}
                   required
                   maxLength="10"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-xl placeholder-gray-400 dark:placeholder-gray-600 dark:text-gray-900 dark:bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
                 />
               </div>
               
@@ -296,7 +300,7 @@ const AdmissionForm = () => {
                   onChange={handleChange}
                   required
                   maxLength="10"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition uppercase"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-xl placeholder-gray-400 dark:placeholder-gray-600 dark:text-gray-900 dark:bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition uppercase"
                 />
               </div>
               
@@ -311,7 +315,7 @@ const AdmissionForm = () => {
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-xl placeholder-gray-400 dark:placeholder-gray-600 dark:text-gray-900 dark:bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
                 />
               </div>
               
@@ -326,7 +330,7 @@ const AdmissionForm = () => {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-xl placeholder-gray-400 dark:placeholder-gray-600 dark:text-gray-900 dark:bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
                 />
               </div>
               
@@ -341,7 +345,7 @@ const AdmissionForm = () => {
                   value={formData.city_name}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-xl placeholder-gray-400 dark:placeholder-gray-600 dark:text-gray-900 dark:bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
                 />
               </div>
               
@@ -357,7 +361,7 @@ const AdmissionForm = () => {
                   onChange={handleChange}
                   required
                   maxLength="6"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-xl placeholder-gray-400 dark:placeholder-gray-600 dark:text-gray-900 dark:bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
                 />
               </div>
             </div>
@@ -371,42 +375,32 @@ const AdmissionForm = () => {
                 <label className="block text-sm font-medium text-gray-700 mb-3">
                   Employment Type *
                 </label>
-                <div className="grid grid-cols-2 gap-3">
-                  <label className={`flex items-center justify-center p-4 border rounded-xl cursor-pointer transition ${formData.employment === 'salaried' ? 'border-blue-500 bg-blue-50 ring-2 ring-blue-500/20' : 'border-gray-300 hover:border-gray-400'}`}>
-                    <input
-                      type="radio"
-                      name="employment"
-                      value="salaried"
-                      checked={formData.employment === "salaried"}
-                      onChange={handleChange}
-                      required
-                      className="sr-only"
-                    />
-                    <div className="flex items-center gap-3">
-                      <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${formData.employment === 'salaried' ? 'border-blue-500' : 'border-gray-400'}`}>
-                        {formData.employment === 'salaried' && <div className="w-2 h-2 rounded-full bg-blue-500"></div>}
-                      </div>
-                      <span className="font-medium">Salaried</span>
-                    </div>
-                  </label>
-                  
-                  <label className={`flex items-center justify-center p-4 border rounded-xl cursor-pointer transition ${formData.employment === 'self-employed' ? 'border-blue-500 bg-blue-50 ring-2 ring-blue-500/20' : 'border-gray-300 hover:border-gray-400'}`}>
-                    <input
-                      type="radio"
-                      name="employment"
-                      value="self-employed"
-                      checked={formData.employment === "self-employed"}
-                      onChange={handleChange}
-                      className="sr-only"
-                    />
-                    <div className="flex items-center gap-3">
-                      <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${formData.employment === 'self-employed' ? 'border-blue-500' : 'border-gray-400'}`}>
-                        {formData.employment === 'self-employed' && <div className="w-2 h-2 rounded-full bg-blue-500"></div>}
-                      </div>
-                      <span className="font-medium">Self-employed</span>
-                    </div>
-                  </label>
-                </div>
+              <div className="grid grid-cols-2 gap-3">
+  <label className={`flex items-center justify-center p-4 border rounded-xl cursor-pointer transition ${formData.employment === 'salaried' ? 'border-blue-500 bg-blue-50 ring-2 ring-blue-500/20 dark:border-blue-400 dark:bg-blue-900/20 dark:ring-blue-400/30' : 'border-gray-300 hover:border-gray-400 dark:border-gray-600 dark:hover:border-gray-500'}`}>
+    <input
+      type="radio"
+      name="employment"
+      value="salaried"
+      checked={formData.employment === "salaried"}
+      onChange={handleChange}
+      required
+      className="mr-3"
+    />
+    <span className="w-full px-4 py-3 border border-gray-300 rounded-xl placeholder-gray-400 dark:placeholder-gray-600 dark:text-gray-900 dark:bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">Salaried</span>
+  </label>
+  
+  <label className={`flex items-center justify-center p-4 border rounded-xl cursor-pointer transition ${formData.employment === 'self-employed' ? 'border-blue-500 bg-blue-50 ring-2 ring-blue-500/20 dark:border-blue-400 dark:bg-blue-900/20 dark:ring-blue-400/30' : 'border-gray-300 hover:border-gray-400 dark:border-gray-600 dark:hover:border-gray-500'}`}>
+    <input
+      type="radio"
+      name="employment"
+      value="self-employed"
+      checked={formData.employment === "self-employed"}
+      onChange={handleChange}
+      className="mr-3"
+    />
+    <span className="w-full px-4 py-3 border border-gray-300 rounded-xl placeholder-gray-400 dark:placeholder-gray-600 dark:text-gray-900 dark:bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">Self-employed</span>
+  </label>
+</div>
               </div>
               
               <div>
@@ -420,7 +414,7 @@ const AdmissionForm = () => {
                   value={formData.company_name}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-xl placeholder-gray-400 dark:placeholder-gray-600 dark:text-gray-900 dark:bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
                 />
               </div>
               
@@ -435,7 +429,7 @@ const AdmissionForm = () => {
                   value={formData.designation}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-xl placeholder-gray-400 dark:placeholder-gray-600 dark:text-gray-900 dark:bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
                 />
               </div>
               
@@ -452,7 +446,7 @@ const AdmissionForm = () => {
                     value={formData.monthly_income}
                     onChange={handleChange}
                     min="0"
-                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
+                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl placeholder-gray-400 dark:placeholder-gray-600 dark:text-gray-900 dark:bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
                   />
                 </div>
               </div>
@@ -470,7 +464,7 @@ const AdmissionForm = () => {
                     value={formData.loan_amount}
                     onChange={handleChange}
                     min="0"
-                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
+                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl placeholder-gray-400 dark:placeholder-gray-600 dark:text-gray-900 dark:bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
                   />
                 </div>
               </div>
