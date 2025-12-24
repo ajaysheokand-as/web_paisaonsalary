@@ -36,7 +36,7 @@ const Navbar = () => {
               <div className="relative">
                 <Image
                   src="/Rupeylo_Logo001.png"
-                  alt="PaisaOnSalary Logo"
+                  alt="RupeyLo Logo"
                   width={70}
                   height={70}
                   className="object-contain"

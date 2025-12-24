@@ -45,10 +45,10 @@ export default function InformationSection() {
 
       <div className="flex flex-col mt-8">
         <h2 className="text-xl font-bold mb-4">
-          What is the maximum and minimum repayment period at PaisaOnSalary?
+          What is the maximum and minimum repayment period at RupeyLo?
         </h2>
         <p>
-          {`At PaisaOnSalary, we allow you enough time and flexibility to repay
+          {`At RupeyLo, we allow you enough time and flexibility to repay
           your loan. This is done to ensure that repayments don't feel like
           a burden. However, when it comes to the precise duration, the
           minimum repayment period is 60 days, and the maximum repayment
