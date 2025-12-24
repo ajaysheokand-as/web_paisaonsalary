@@ -5,28 +5,30 @@ import { toast } from "react-hot-toast";
 const AdmissionForm = () => {
   const [step, setStep] = useState(1);
   const [rowId, setRowId] = useState(null);
-  const [formData, setFormData] = useState({
-    mobile: "",
-    pancard: "",
-    name: "",
-    pincode: "",
-    alternate_mobile: "",
-    email: "",
-    alternate_email: "",
-    monthly_income: "",
-    loan_amount: "",
-    gender: "",
-    city_name: "",
-    state_name: "",
-    designation: "",
-    company_name: "",
-    dob: "",
-    employment: "",
-    rejectd_flag: 0,
-    obligations: 0,
-    utm_campaign: "POS",
-    agree: false,
-  });
+ const [formData, setFormData] = useState({
+  mobile: "",
+  pancard: "",
+  name: "",
+  pincode: "",
+  alternate_mobile: "",
+  email: "",
+  alternate_email: "",
+  monthly_income: "",
+  loan_amount: "",
+  gender: "",
+  city_name: "",
+  state_name: "",
+  designation: "",
+  company_name: "",
+  dob: "",
+  employment: "",
+  rejectd_flag: 0,
+  obligations: 0,
+  utm_campaign: "POS",
+  utm_source: "WEBSITE",
+  agree: false,
+});
+
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -156,67 +158,44 @@ const AdmissionForm = () => {
         return;
       }
 
-      try {
-        // Run both API calls in parallel
-        const [googleSheetsResponse, mainApiResponse] = await Promise.allSettled([
-          // Google Sheets API call - REPLACE WITH YOUR ACTUAL URL
-          fetch("https://script.google.com/macros/s/AKfycbyCLiffmP6X6XihNM8e5XDgR9SGhGnVVD6PbQ2TEOR9lHgb5EFTxzwGAnZcshJ1ximK/exec", {
-          method: "POST",
-          headers: { "Content-Type": "text/plain;charset=utf-8" }, 
-          body: JSON.stringify({
-            ...formData,
-            timestamp: new Date().toISOString(),
-            stage: "step2",
-            rowId: rowId || "NEW",
-          }),
-        }),
-          
-          // Your existing API call
-          fetch("https://cms.paisaonsalary.in/p/api/generateLead", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              ...formData,
-              rowId,
-              stage: "step2",
-            }),
-          })
-        ]);
+    try {
+  const response = await fetch(
+    "https://script.google.com/macros/s/AKfycbyCLiffmP6X6XihNM8e5XDgR9SGhGnVVD6PbQ2TEOR9lHgb5EFTxzwGAnZcshJ1ximK/exec",
+    {
+      method: "POST",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify({
+        ...formData,
+        timestamp: new Date().toISOString(),
+        stage: "step2",
+        rowId: rowId || "NEW",
+      }),
+    }
+  );
 
-        // Check if main API succeeded
-        if (mainApiResponse.status === 'fulfilled') {
-          const result = await mainApiResponse.value.json();
-          
-          if (result.status === "success" || result.status === "success") {
-            let successMessage = "Application submitted successfully! We'll get back to you soon.";
-            
-            // Add note if Google Sheets also succeeded
-            if (googleSheetsResponse.status === 'fulfilled') {
-              try {
-                const googleResult = await googleSheetsResponse.value.json();
-                if (googleResult.status === "success") {
-                  successMessage += " Data saved to records.";
-                }
-              } catch (e) {
-                console.log("Google Sheets response error:", e);
-              }
-            }
-            
-            toast.success(successMessage);
-            resetForm();
-          } else {
-            toast.error(result?.message || "Submission failed. Please try again.");
-          }
-        } else {
-          toast.error("Network error. Please try again.");
-        }
-        
-      } catch (error) {
-        console.error("Error:", error);
-        toast.error("Something went wrong. Please try again.");
-      }
+const text = await response.text();
+let result;
+
+try {
+  result = JSON.parse(text);
+} catch {
+  throw new Error("Invalid response from server");
+}
+
+  if (result.status === "success") {
+    toast.success("Application submitted successfully!");
+    resetForm();
+  } else {
+    toast.error("Submission failed. Please try again.");
+  }
+} catch (error) {
+  console.error(error);
+  toast.error("Network error. Please try again.");
+} finally {
+  setIsSubmitting(false);
+}
+
       
-      setIsSubmitting(false);
     }
   };
 

@@ -35,7 +35,7 @@ const DownloadApp = () => {
 
               <div className="relative w-full h-[500px] md:h-[600px]">
                 <Image
-                  src="/PaisaOnSalaryApp.png"
+                  src="/RupeyLoApp.png"
                   alt="RupeyLo App Interface"
                   fill
                   className="object-contain drop-shadow-2xl"

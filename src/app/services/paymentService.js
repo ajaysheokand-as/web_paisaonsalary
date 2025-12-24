@@ -1,7 +1,7 @@
 export const sendOtp = async (pancard) => {
   try {
     // const resp = await fetch(
-    //   `https://api.paisaonsalary.in/Api/CustomerDetails/Sendotp`
+    //   `https://api.RupeyLo.in/Api/CustomerDetails/Sendotp`
     // {
     //   method: "POST",
     //   headers: {
@@ -32,7 +32,7 @@ export const sendOtp = async (pancard) => {
 export const verifyOtp = async (panNumber, otp) => {
   try {
     // const resp = await fetch(
-    //   `https://api.paisaonsalary.in/Api/CustomerDetails/verifyOtp`,
+    //   `https://api.RupeyLo.in/Api/CustomerDetails/verifyOtp`,
     //   {
     //     method: "POST",
     //     headers: {
@@ -127,7 +127,7 @@ export const createPayuOrder = async (paymentData) => {
 export const getRepaymentDetailsByPan = async (pancard) => {
   try {
     const response = await fetch(
-      `https://crm.paisaonsalary.in/repayment/${pancard}`
+      `https://crm.RupeyLo.in/repayment/${pancard}`
     );
     if (!response.ok) {
       throw new Error("Failed to fetch repayment details");
