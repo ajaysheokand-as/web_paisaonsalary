@@ -197,7 +197,7 @@ export default function AboutPage() {
         >
           <motion.div variants={slideInLeft} className="relative w-full h-80 rounded-2xl overflow-hidden shadow-2xl">
             <Image
-              src="/loans.jpeg"
+              src="/Loans.jpeg"
               alt="Instant loan approval"
               fill
               className="object-cover hover:scale-105 transition-transform duration-700"
