@@ -60,7 +60,7 @@ export default function RootLayout({ children }) {
             property="og:description"
             content="RupeyLo offers fast and secure short-term loans exclusively for salaried individuals. Get instant approval, 100% digital processing, and same-day disbursal—all from your mobile device."
           />
-          <meta property="og:image" content="/RupeyLo.jpeg" />
+          <meta property="og:image" content="/Rupeylo_Logo001.png" />
           <meta property="og:url" content="https://RupeyLo.com" />
           <meta property="og:type" content="website" />
 
@@ -74,7 +74,7 @@ export default function RootLayout({ children }) {
             name="twitter:description"
             content="RupeyLo offers fast and secure short-term loans exclusively for salaried individuals. Get instant approval, 100% digital processing, and same-day disbursal—all from your mobile device."
           />
-          <meta name="twitter:image" content="/RupeyLo.jpeg" />
+          <meta name="twitter:image" content="/Rupeylo_Logo001.png" />
           {/* <Script src="https://cdn-in.pagesense.io/js/60043956077/8f602df488af4951b11b89a7bb69e290.js"></Script> */}
 
           {/* <!-- Meta Pixel Code --> */}
@@ -115,8 +115,8 @@ export default function RootLayout({ children }) {
                 "@context": "https://schema.org",
                 "@type": "FinancialService",
                 "name": "RupeyLo",
-                "url": "https://RupeyLo.com",
-                "logo": "https://RupeyLo.com/RupeyLo.jpeg",
+                "url": "https://rupeylo.com",
+                "logo": "https://rupeylo.com/Rupeylo_Logo001.png",
                 "description": "Get short-term salary loans instantly with 100% digital processing. Trusted by salaried professionals across India.",
                 "address": {
                   "@type": "PostalAddress",

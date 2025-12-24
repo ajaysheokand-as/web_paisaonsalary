@@ -134,10 +134,10 @@ export default function fairPracticeCode() {
               <br />
               Email:{" "}
               <a
-                href="mailto:care@RupeyLo.in"
+                href="mailto:contact@rupeylo.com"
                 className="text-blue-600 underline"
               >
-                care@RupeyLo.in
+                contact@rupeylo.com
               </a>
             </p>
             <p>If unresolved, borrowers may escalate to:</p>
@@ -151,10 +151,10 @@ export default function fairPracticeCode() {
               <br />
               Email:{" "}
               <a
-                href="mailto:care@RupeyLo.in"
+                href="mailto:contact@rupeylo.com"
                 className="text-blue-600 underline"
               >
-                care@RupeyLo.in
+                contact@rupeylo.com
               </a>
             </p>
             <p>

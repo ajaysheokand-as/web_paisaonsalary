@@ -127,7 +127,7 @@ export const createPayuOrder = async (paymentData) => {
 export const getRepaymentDetailsByPan = async (pancard) => {
   try {
     const response = await fetch(
-      `https://crm.RupeyLo.in/repayment/${pancard}`
+      `https://crm.rupeylo.in/repayment/${pancard}`
     );
     if (!response.ok) {
       throw new Error("Failed to fetch repayment details");

@@ -24,7 +24,7 @@ const AdmissionForm = () => {
   employment: "",
   rejectd_flag: 0,
   obligations: 0,
-  utm_campaign: "POS",
+  utm_campaign: "RUPEYLO",
   utm_source: "WEBSITE",
   agree: false,
 });
@@ -71,7 +71,7 @@ const AdmissionForm = () => {
       employment: "",
       rejectd_flag: 0,
       obligations: 0,
-      utm_campaign: "POS",
+      utm_campaign: "RUPEYLO",
       utm_source: "WEBSITE",
       agree: false,
     });
