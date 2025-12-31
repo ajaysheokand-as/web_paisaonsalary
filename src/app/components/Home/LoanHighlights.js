@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import {
   CalendarCheck,
   Clock,
@@ -57,6 +57,7 @@ const LoanHighlights = () => {
   const [isTablet, setIsTablet] = useState(false);
   const sliderRef = useRef(null);
   const autoPlayRef = useRef(null);
+  const touchStartX = useRef(0);
 
   // Handle responsive items to show
   useEffect(() => {
@@ -74,15 +75,18 @@ const LoanHighlights = () => {
       }
     };
 
-    updateItemsToShow();
-    window.addEventListener("resize", updateItemsToShow);
-    return () => window.removeEventListener("resize", updateItemsToShow);
+    // Only run on client
+    if (typeof window !== 'undefined') {
+      updateItemsToShow();
+      window.addEventListener("resize", updateItemsToShow);
+      return () => window.removeEventListener("resize", updateItemsToShow);
+    }
   }, []);
 
   // Create an extended array for seamless infinite scroll
   const extendedFeatures = [...features, ...features, ...features];
 
-  const nextSlide = () => {
+  const nextSlide = useCallback(() => {
     setCurrentIndex((prev) => {
       const next = prev + 1;
       if (next >= extendedFeatures.length - itemsToShow * 2) {
@@ -90,9 +94,9 @@ const LoanHighlights = () => {
       }
       return next;
     });
-  };
+  }, [extendedFeatures.length, features.length, itemsToShow]);
 
-  const prevSlide = () => {
+  const prevSlide = useCallback(() => {
     setCurrentIndex((prev) => {
       const next = prev - 1;
       if (next <= 1) {
@@ -100,10 +104,30 @@ const LoanHighlights = () => {
       }
       return next;
     });
-  };
+  }, [features.length]);
 
   const goToSlide = (index) => {
     setCurrentIndex(index * itemsToShow + features.length);
+  };
+
+  // Touch handlers
+  const handleTouchStart = (e) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = (e) => {
+    if (!isMobile && !isTablet) return;
+    
+    const touchEndX = e.changedTouches[0].clientX;
+    const diff = touchStartX.current - touchEndX;
+    
+    if (Math.abs(diff) > 50) {
+      if (diff > 0) {
+        nextSlide();
+      } else {
+        prevSlide();
+      }
+    }
   };
 
   // Auto-play effect
@@ -118,7 +142,7 @@ const LoanHighlights = () => {
         clearInterval(autoPlayRef.current);
       }
     };
-  }, [isPaused, currentIndex, itemsToShow]);
+  }, [isPaused, currentIndex, itemsToShow, nextSlide]);
 
   const handleMouseEnter = () => setIsPaused(true);
   const handleMouseLeave = () => setIsPaused(false);
@@ -158,12 +182,14 @@ const LoanHighlights = () => {
           </p>
         </div>
 
-        {/* Slider Container */}
+        {/* Slider Container with Touch Events */}
         <div className="relative overflow-hidden rounded-xl lg:rounded-2xl mx-2 sm:mx-4">
           <div 
             ref={sliderRef}
             className="flex transition-transform duration-500 ease-out"
             style={{ transform: `translateX(-${currentIndex * (100 / itemsToShow)}%)` }}
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
           >
             {extendedFeatures.map((item, idx) => {
               const IconComponent = item.icon;
@@ -245,38 +271,14 @@ const LoanHighlights = () => {
         </div>
 
         {/* Mobile Swipe Instructions */}
-        <div className="lg:hidden text-center mt-6">
-          <p className="text-gray-400 text-xs sm:text-sm">
-            Swipe or use arrows to navigate
-          </p>
-        </div>
+        {(isMobile || isTablet) && (
+          <div className="text-center mt-6">
+            {/* <p className="text-gray-400 text-xs sm:text-sm">
+              Swipe or use arrows to navigate
+            </p> */}
+          </div>
+        )}
       </div>
-
-      {/* Touch Events for Mobile */}
-      {typeof window !== 'undefined' && window.innerWidth < 1024 && (
-        <div 
-          className="absolute inset-0 lg:hidden"
-          onTouchStart={(e) => {
-            const touchStartX = e.touches[0].clientX;
-            const handleTouchEnd = (e) => {
-              const touchEndX = e.changedTouches[0].clientX;
-              const diff = touchStartX - touchEndX;
-              
-              if (Math.abs(diff) > 50) {
-                if (diff > 0) {
-                  nextSlide();
-                } else {
-                  prevSlide();
-                }
-              }
-              
-              document.removeEventListener('touchend', handleTouchEnd);
-            };
-            
-            document.addEventListener('touchend', handleTouchEnd);
-          }}
-        />
-      )}
     </section>
   );
 };
