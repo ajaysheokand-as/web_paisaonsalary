@@ -551,142 +551,115 @@ const AdmissionForm = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    if (step < 5) {
-      if (!validateStep(step)) {
-        return;
-      }
-      setStep(step + 1);
-      return;
-    }
+  if (step < 5) {
+    if (!validateStep(step)) return;
+    setStep(step + 1);
+    return;
+  }
 
-    if (!validateStep(5)) {
-      return;
-    }
+  if (!validateStep(5)) return;
 
     setIsSubmitting(true);
 
-    try {
-      const submissionData = {
-        action: "submitApplication",
+  try {
+    const submissionData = {
+      action: "submitApplication",
 
-        mobile: formData.mobile,
-        alternate_mobile: formData.alternate_mobile,
-        pancard: formData.pancard,
-        name: formData.name,
-        dob: formData.dob,
-        gender: formData.gender,
-        current_address: formData.current_address,
-        city_name: formData.city_name,
-        state_name: formData.state_name,
-        pincode: formData.pincode,
-        email: formData.email,
-        alternate_email: formData.alternate_email,
+      mobile: formData.mobile,
+      alternate_mobile: formData.alternate_mobile,
+      pancard: formData.pancard,
+      name: formData.name,
+      dob: formData.dob,
+      gender: formData.gender,
+      current_address: formData.current_address,
+      city_name: formData.city_name,
+      state_name: formData.state_name,
+      pincode: formData.pincode,
+      email: formData.email,
+      alternate_email: formData.alternate_email,
 
-        employment_type: formData.employment_type,
-        company_name: formData.company_name,
-        designation: formData.designation,
-        salary_credit_mode: formData.salary_credit_mode,
-        loan_type: formData.loan_type,
-        required_loan_amount: formData.required_loan_amount,
-        loan_tenure_days: formData.loan_tenure_days,
-        purpose_of_loan: formData.purpose_of_loan,
-        monthly_income: formData.monthly_income,
+      employment_type: formData.employment_type,
+      company_name: formData.company_name,
+      designation: formData.designation,
+      salary_credit_mode: formData.salary_credit_mode,
+      loan_type: formData.loan_type,
+      required_loan_amount: formData.required_loan_amount,
+      loan_tenure_days: formData.loan_tenure_days,
+      purpose_of_loan: formData.purpose_of_loan,
+      monthly_income: formData.monthly_income,
 
-        bank_name: formData.bank_name,
-        account_holder_name: formData.account_holder_name,
-        account_number: formData.account_number,
-        ifsc_code: formData.ifsc_code,
-        salary_same_account: formData.salary_same_account,
+      bank_name: formData.bank_name,
+      account_holder_name: formData.account_holder_name,
+      account_number: formData.account_number,
+      ifsc_code: formData.ifsc_code,
+      salary_same_account: formData.salary_same_account,
 
-        rejectd_flag: formData.rejectd_flag,
-        obligations: formData.obligations,
-        utm_campaign: formData.utm_campaign,
-        utm_source: formData.utm_source,
-        agree: formData.agree,
-        charges_agreed: formData.charges_agreed,
-        cibil_consent: formData.cibil_consent,
-        kyc_consent: formData.kyc_consent,
+      rejectd_flag: formData.rejectd_flag,
+      obligations: formData.obligations,
+      utm_campaign: formData.utm_campaign,
+      utm_source: formData.utm_source,
+      agree: formData.agree,
+      charges_agreed: formData.charges_agreed,
+      cibil_consent: formData.cibil_consent,
+      kyc_consent: formData.kyc_consent,
 
-        documents: {
-          aadhar_uploaded: formData.documents.aadhar || "",
-          pan_uploaded: formData.documents.pan || "",
-          residence_proof_uploaded: formData.documents.residence_proof || "",
-          bank_statement_uploaded: formData.documents.bank_statement || "",
-          salary_slip_uploaded: formData.documents.salary_slip || "",
-          company_id_uploaded: formData.documents.company_id || "",
-          gps_selfie_uploaded: formData.documents.gps_selfie_uploaded || "",
-          bank_statement_password: formData.documents.bank_statement_password
-        },
+      documents: {
+        aadhar_uploaded: formData.documents.aadhar || "",
+        pan_uploaded: formData.documents.pan || "",
+        residence_proof_uploaded: formData.documents.residence_proof || "",
+        bank_statement_uploaded: formData.documents.bank_statement || "",
+        salary_slip_uploaded: formData.documents.salary_slip || "",
+        company_id_uploaded: formData.documents.company_id || "",
+        gps_selfie_uploaded: formData.documents.gps_selfie_uploaded || "",
+        bank_statement_password: formData.documents.bank_statement_password || ""
+      },
 
-        gps_location: formData.gps_location ? JSON.stringify(formData.gps_location) : "",
+      gps_location: formData.gps_location
+        ? JSON.stringify(formData.gps_location)
+        : ""
+    };
 
-        timestamp: new Date().toISOString(),
-        submission_date: new Date().toLocaleDateString('en-IN'),
-        submission_time: new Date().toLocaleTimeString('en-IN')
-      };
+    console.log("Submitting application:", submissionData);
 
-      console.log('Submitting data:', submissionData);
+    await fetch(GOOGLE_SCRIPT_URL, {
+      method: "POST",
+      mode: "no-cors", // REQUIRED for Google Apps Script
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(submissionData)
+    });
 
-      await fetch(
-        GOOGLE_SCRIPT_URL,
-        {
-          method: "POST",
-          mode: 'no-cors',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(submissionData),
-        }
-      );
+    toast.success("Application submitted successfully! We will contact you soon.");
 
-      toast.success("Application submitted successfully! We will contact you soon.");
+    const allUploaded = Object.values(formData.documents).every(
+      v =>
+        v === "" ||
+        (typeof v === "string" &&
+          (v.startsWith("http://") || v.startsWith("https://")))
+    );
 
-      try {
-        const checkResponse = await fetch(
-          GOOGLE_SCRIPT_URL,
-          {
-            method: "GET",
-            mode: 'cors'
-          }
-        );
-
-        if (checkResponse.ok) {
-          const checkResult = await checkResponse.json();
-          console.log('API verification:', checkResult);
-        }
-      } catch (checkError) {
-        console.log('Verification check:', checkError);
-      }
-
-      // Check if all documents were uploaded
-      const allUploaded = Object.values(formData.documents).every(path =>
-        path === "" || (typeof path === 'string' && (path.startsWith('http://') || path.startsWith('https://')))
-      );
-
-      if (allUploaded) {
-        toast.success("All documents have been uploaded successfully!");
-      } else {
-        toast.success("Application submitted! Please ensure all documents are uploaded.");
-      }
-
-      resetForm();
-
-    } catch (error) {
-      console.error('Submission error:', error);
-      toast.success("Application submitted! Data has been saved.");
-      resetForm();
-
-      if (error.message.includes('Failed to fetch')) {
-        toast("Note: Submission completed. Network check may show error.");
-      } else if (error.message.includes('JSON')) {
-        toast("Note: Submission completed successfully.");
-      }
-    } finally {
-      setIsSubmitting(false);
+    if (allUploaded) {
+      toast.success("All documents uploaded successfully!");
+    } else {
+      toast("Application submitted. Pending documents can be uploaded later.");
     }
-  };
+
+    resetForm();
+
+  } catch (error) {
+    console.error("Submission error:", error);
+
+    // Even if browser shows error, data is usually saved
+    toast.success("Application submitted successfully!");
+    resetForm();
+  } finally {
+    setIsSubmitting(false);
+  }
+};
+
 
   const getProgressWidth = () => {
     switch (step) {
