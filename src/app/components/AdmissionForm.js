@@ -1977,7 +1977,7 @@ const AdmissionForm = () => {
 
       <form onSubmit={handleSubmit} className="space-y-8 px-4 sm:px-6 pb-8">
         {/* Step 1: QR Code Payment */}
-        <div className="space-y-6">
+        {/*  <div className="space-y-6">
           <h3 className="text-xl font-semibold text-gray-900 mb-4">Step 1: Bureau Verification Payment</h3>
 
           <div className="bg-blue-50 border border-blue-200 rounded-xl p-6">
@@ -1994,9 +1994,9 @@ const AdmissionForm = () => {
                
               </div>
 
-            <div className="flex-1 flex flex-col items-center">
+           <div className="flex-1 flex flex-col items-center">
   <div className="bg-white p-4 sm:p-5 rounded-lg border-2 border-blue-300 shadow-lg">
-    {/* QR Code - Responsive Size */}
+    
     <div className="w-36 h-36 sm:w-40 sm:h-40 md:w-44 md:h-44 flex items-center justify-center rounded-lg overflow-hidden">
       <img
         src="/rupeloqr1.jpeg"
@@ -2014,11 +2014,11 @@ const AdmissionForm = () => {
 </div>
             </div>
           </div>
-        </div>
+        </div>*/}
 
         {/* Step 2: Consent Confirmation */}
         <div className="space-y-6">
-          <h3 className="text-xl font-semibold text-gray-900 mb-4">Step 2: Consent & Agreement</h3>
+          <h3 className="text-xl font-semibold text-gray-900 mb-4">Step 1: Consent & Agreement</h3>
 
           <div className="border border-gray-300 rounded-xl p-6">
             <label className="flex items-start gap-3 cursor-pointer">
@@ -2030,10 +2030,7 @@ const AdmissionForm = () => {
                 className="mt-1 w-5 h-5 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
               />
               <span className="text-sm text-gray-700">
-                I confirm that I have read and understood the Rupeylo Loan Terms & Conditions,
-                authorize Rupeylo and its lending partners to conduct credit bureau verification,
-                agree to pay ₹100 (including GST) towards bureau verification charges,
-                and consent to be contacted for loan processing and collection as per applicable laws.
+               I confirm that I have read and understood the Rupeylo Loan Terms & Conditions, authorize Rupeylo and its lending partners to verify my credit details, and consent to being contacted for loan processing and related communication as per applicable laws.
               </span>
             </label>
 
@@ -2045,7 +2042,7 @@ const AdmissionForm = () => {
 
         {/* Step 3: Submit Button */}
         <div className="space-y-6">
-          <h3 className="text-xl font-semibold text-gray-900 mb-4">Step 3: Complete Application</h3>
+          <h3 className="text-xl font-semibold text-gray-900 mb-4">Step 2: Complete Application</h3>
 
           <div className="border border-gray-300 rounded-xl p-6">
             <p className="text-sm text-gray-700 mb-4">
