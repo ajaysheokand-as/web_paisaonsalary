@@ -13,10 +13,17 @@ const isDevelopment = typeof process !== 'undefined'
 export const API_CONFIG = {
   // Development URLs
   development: {
-    BASE_URL: "http://localhost/web_paisaonsalary/api",
+    BASE_URL: "https://rupeylo.com/api",
     UPLOAD_ENDPOINT: "upload.php",
-    GOOGLE_SCRIPT_URL: "https://script.google.com/macros/s/AKfycbxdAH8OUZL2z_yXhe8E2zM9Z4TF1JxZvSCMD8Qt1CpxM9OiOHN5IWdXmzuODSS2lV-B3Q/exec",
-    GOOGLE_SHEET_ID: "1RmhjA4cEHm2c0zZCGkRfnhR7nKfEg04W2GsE9C6t8qM"
+    GOOGLE_SCRIPT_URL: "https://script.google.com/macros/s/AKfycbwVCe9m3_mQqkMYFeGpOc_6uUjOctJgYHGfKysLCGYR1MoDtcb1sTvAKh-fXpxPL6yA/exec",
+    GOOGLE_SHEET_ID: "1Ya-GWvZDjQrNbtivQQX6xcgKoTAsoBsu4_E4-3uCOhI"
+  },
+
+  production: {
+    BASE_URL: "https://rupeylo.com/api",
+    UPLOAD_ENDPOINT: "upload.php",
+    GOOGLE_SCRIPT_URL: "https://script.google.com/macros/s/AKfycbwVCe9m3_mQqkMYFeGpOc_6uUjOctJgYHGfKysLCGYR1MoDtcb1sTvAKh-fXpxPL6yA/exec",
+    GOOGLE_SHEET_ID: "1Ya-GWvZDjQrNbtivQQX6xcgKoTAsoBsu4_E4-3uCOhI"
   },
   // Production URLs
 //   production: {
