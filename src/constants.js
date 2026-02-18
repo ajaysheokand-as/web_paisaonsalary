@@ -2,7 +2,7 @@ export const TITLE = "RupeyLo";
 export const DESCRIPTION = "DESCRIPTION";
 export const HEAD_OFFICE = "247, Office No-3/3, A.B.S. Tower, 3rd Floor, Mundka, New Delhi, Delhi 110041";
 export const EMAIL = "contact@rupeylo.com";
-export const PHONE = "+91-8114466009";
+export const PHONE = "+91-94859 27855";
 
 // Determine environment (check both Node and browser environments)
 const isDevelopment = typeof process !== 'undefined' 
